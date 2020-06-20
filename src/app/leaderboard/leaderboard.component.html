@@ -1,0 +1,66 @@
+<div class="container-fluid">
+    <div class="group">
+        <div class="boxboarder">
+            <span><button type="button" class="btn btn-primary">Early Birds</button></span>
+            <div class="row p-2">
+                <div class="col-lg-2">
+                </div>
+                <div class="col-lg-8">
+                    <table class="table table-striped ">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>User ID</th>
+                                <th>User Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <div *ngIf="this.earlyBirds.length>0">
+                                <tr class="table-info" *ngFor="let user of earlyBirds;let i = index">
+                                    <th scope="row">{{i+1 | number}}</th>
+                                    <td>{{ user.id }}</td>
+                                    <td>{{ user.firstName }} {{user.lastName}}</td>
+                                </tr>
+                            </div>
+                            <div *ngIf="this.earlyBirds.length===0">
+                                {{this.message}}
+                            </div>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-lg-2">
+                </div>
+            </div>
+            <span><button type="button" class="btn btn-primary">Winners of E-Voucher</button></span>
+            <div class="row p-2">
+                <div class="col-lg-2">
+                </div>
+                <div class="col-lg-8">
+                    <table class="table table-striped ">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>User ID</th>
+                                <th>User Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <div *ngIf="this.evouchers.length>0">
+                                <tr class="table-info" *ngFor="let user of evouchers;let i = index">
+                                    <th scope="row">{{i+1 | number}}</th>
+                                    <td>{{ user.id }}</td>
+                                    <td>{{ user.firstName }} {{user.lastName}}</td>
+                                </tr>
+                            </div>
+                            <div *ngIf="this.evouchers.length===0">
+                                {{this.evouchersmessage}}
+                            </div>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-lg-2">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

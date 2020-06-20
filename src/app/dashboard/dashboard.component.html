@@ -1,0 +1,179 @@
+<app-navbar></app-navbar>
+<div class="col-md-12">
+  <!--      <div class="row">        -->
+  <div class="row p-2">
+    <div class="col-lg-2">
+    </div>
+    <div class="col-lg-2 p-1">
+      <div class="card" (click)="this.user?.adminFlag? getEventList('All'):getEventListForUser('All')">
+        <div class="card-sm-header text-white bg-info mb-3">
+          <div class="btn btn-toolbar">
+            <a>
+              <div class="card-subtitle">
+                <i class="fa fa-bars align-content-start"></i>
+              </div>
+              <div class="col-md-12">
+                <span *ngIf="this.user?.adminFlag" class="text-sm-right"> {{eventList["TOTAL"]?.length || '0'}}</span>
+                <span *ngIf="!this.user?.adminFlag" class="text-sm-right"> {{eventDetailsList["TOTAL"]?.length || '0'}}</span>
+              </div>
+              <div class="col-md-12">
+                <span class="text-sm-center" style="font-size: 11px">All Events</span>
+                <br>
+                <span class="text-sm-center" style="font-size: 11px">&nbsp;</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2 p-1">
+      <div class="card" (click)="this.user?.adminFlag? getEventList('Active'):getEventListForUser('Active') ">
+        <div class="card-sm-header text-white bg-success mb-3">
+          <div class="btn btn-toolbar">
+            <a>
+              <div class="card-subtitle">
+                <i class="fa fa-tasks align-content-start"></i>
+              </div>
+              <div class="col-md-12">
+                <span *ngIf="this.user?.adminFlag" class="text-sm-right"> {{eventList["ACTIVE"]?.length || '0'}}</span>
+                <span *ngIf="!this.user?.adminFlag" class="text-sm-right"> {{eventDetailsList["ACTIVE"]?.length || '0'}}</span>
+              </div>
+              <div class="col-md-12">
+                <span class="text-sm-center" style="font-size: 11px">Active Events</span>
+                <br>
+                <span class="text-sm-center" style="font-size: 11px">&nbsp;</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2 p-1">
+      <div class="card" (click)="this.user?.adminFlag? getEventList('Completed'):getEventListForUser('Completed') ">
+        <div class="card-sm-header text-white bg-warning mb-3">
+          <div class="btn btn-toolbar">
+            <a>
+              <div class="card-subtitle">
+                <i class="fa fa-check-square-o align-content-start"></i>
+              </div>
+              <div>
+                <span *ngIf="this.user?.adminFlag" class="text-sm-right"> {{eventList["COMPLETED"]?.length || '0'}}</span>
+                <span *ngIf="!this.user?.adminFlag" class="text-sm-right"> {{eventDetailsList["COMPLETED"]?.length || '0'}}</span>
+                
+              </div>
+              <div>
+                <span class="text-sm-center" style="font-size: 11px">Completed Events</span>
+                <br>
+                <span class="text-sm-center" style="font-size: 11px">&nbsp;</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2 p-1">
+      <div class="card" (click)="this.user?.adminFlag? getEventList('Upcoming'):getEventListForUser('Upcoming') ">
+        <div class="card-sm-header text-white bg-primary mb-3">
+          <div class="btn btn-toolbar">
+            <a>
+              <div class="card-subtitle">
+                <i class="fa fa-hourglass-half align-content-start"></i>
+              </div>
+              <div>
+                <span *ngIf="this.user?.adminFlag" class="text-sm-right">{{eventList["UPCOMING"]?.length || '0'}}</span>
+                <span *ngIf="!this.user?.adminFlag" class="text-sm-right"> {{eventDetailsList["UPCOMING"]?.length || '0'}}</span>
+              </div>
+              <div>
+                <span class="text-sm-center" style="font-size: 11px">Upcoming Events</span>
+                <br>
+                <span class="text-sm-center" style="font-size: 11px">&nbsp;</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Table body-->
+    
+    
+    <div class="col-lg-2"></div>
+  </div>
+
+  <div style="text-align: center;background: whitesmoke;font-size:20px">
+    <b><span>{{this.selectedType}} Events</span></b>
+  </div>
+
+
+  <div class="row p-2">
+    <div class="col-lg-2">
+    </div>
+    <div class="col-lg-8">
+      <table class="table table-striped ">
+
+        <!--Table head-->
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Slot</th>
+            <th>Date</th>
+            <th>Skills</th>
+            <th *ngIf="this.user?.adminFlag;else register"></th>
+            <ng-template #register>
+              <th *ngIf="showRegisterTag;else blank_field">Register</th>
+            </ng-template>
+            <ng-template #blank_field>
+              <th></th>
+            </ng-template>
+           
+            <th>View/Edit</th>
+
+          </tr>
+        </thead>
+        <!--Table head-->
+
+        <!--Table body-->
+        <tbody *ngIf="this.user?.adminFlag">
+          <tr class="table-info" *ngFor="let event of filteredEventList;let i = index">
+            <th scope="row">{{i+1 | number}}</th>
+            <td>{{ event.slot }}</td>
+            <td *ngIf="this.user?.adminFlag">{{event.date}}</td>
+            <td *ngIf="!this.user?.adminFlag">{{ event.date| date:'dd-MM-yyyy': 'IST' }}</td>
+            <td>{{ event.skills }}</td>
+            <td ></td>
+            <td><i class="fa fa-pencil-square-o" style="font-size: 35px;" aria-hidden="true"
+                (click)="editEvent(event)"></i></td>
+          </tr>
+
+        </tbody>
+
+        <tbody *ngIf="!this.user?.adminFlag">
+          <tr class="table-info" *ngFor="let event of filteredEventDetailsList;let i = index">
+            <th scope="row">{{i+1 | number}}</th>
+            <td>{{ event.slot }}</td>
+            <td *ngIf="this.user?.adminFlag">{{event.date}}</td>
+            <td *ngIf="!this.user?.adminFlag">{{ event.date| date:'dd-MM-yyyy': 'IST'}}</td>
+            <td>{{ event.skills }}</td>
+            <td *ngIf="event.nomination ==false&&!this.user.adminFlag&&event.role!='SME'&& compareTodaysDate(event.date);else sme_check"><button type="button" class="btn btn-primary"
+                (click)="getNominated(event.id)">Nominate</button></td>
+                <ng-template #sme_check>
+                  <ng-container *ngIf="event.role=='SME'; else nominated"><td></td></ng-container>
+              </ng-template>
+            <ng-template #nominated>
+              <td *ngIf="!this.user.adminFlag&& compareTodaysDate(event.date);else other_content"><button type="button" class="btn btn-success" disabled>Nominated</button></td>
+            </ng-template>
+            <ng-template #other_content>
+              <td ></td>
+            </ng-template>
+            <td><i class="fa fa-pencil-square-o" style="font-size: 35px;" aria-hidden="true"
+                (click)="editEvent(event)"></i></td>
+          </tr>
+
+        </tbody>
+      </table>
+      <!--Table-->
+    </div>
+    <div class="col-lg-2">
+    </div>
+  </div>
+</div>

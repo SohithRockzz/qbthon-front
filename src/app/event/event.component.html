@@ -1,0 +1,116 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+    integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+
+<app-navbar></app-navbar>
+<div class="container-fluid">
+    <form (ngSubmit)="createEvent()" [formGroup]="eventCreationForm">
+        <div class="group">
+            <div class="boxboarder">
+                <h4 style="text-align: center;color: blue;">Create Event</h4>
+                <div class="col-md-12 p-2">
+                    <div class="row">
+                        <div class="col-md-5" style="text-align: right;">
+                            <b><label for="skills">Skills</label></b>
+                        </div>
+                        <div class="col-md-1">
+                            <label for="">:</label>
+                        </div>
+                        <div class="col-md-6">
+                            <select class="mdb-select md-form" class="form-control form-control-sm"
+                                formControlName="skill" id="skill" name="skill" multiple required style="width: 27%;">
+                                <option value="" disabled selected>Choose your skills</option>
+                                <option value="java">Java</option>
+                                <option value=".net">.Net</option>
+                                <option value="angular">Angular</option>
+                                <option value="html">HTML</option>
+                                <option value="css">CSS</option>
+                            </select>
+                            <div *ngIf=" submitted && skill.errors?.required">
+                                <span style="color: red;padding:2px">Skill is a required field</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 p-2">
+                    <div class="row">
+                        <div class="col-md-5" style="text-align: right;">
+                            <b><label for="date">Date</label></b>
+                        </div>
+                        <div class="col-md-1">
+                            <label for="">:</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input class="form-control form-control-sm" formControlName="date" id="event-date"
+                                name="event-date" type="date" min=this.today style="width: 27%;">
+                            <div *ngIf=" submitted && date.errors?.required">
+                                <span style="color: red;padding:2px">Date is a required field</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 p-2">
+                    <div class="row">
+                        <div class="col-md-5" style="text-align: right;">
+                            <b><label for="slot">Slot</label></b>
+                        </div>
+                        <div class="col-md-1">
+                            <label for="">:</label>
+                        </div>
+                        <div class="col-md-6">
+                            <select style="width: 27%;" class="form-control form-control-sm" formControlName="slot"
+                                id="slot" name="slot" required>
+                                <option disabled selected value=''>Please Select</option>
+                                <option value='morning'>Morning</option>
+                                <option value='noon'>Noon</option>
+                            </select>
+                            <div *ngIf=" submitted && slot.errors?.required">
+                                <span style="color: red;padding:2px">Date is a required field</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 p-2">
+                    <div class="row">
+                        <div class="col-md-5" style="text-align: right;">
+                            <b><label for="sme">SME's</label></b>
+                        </div>
+                        <div class="col-md-1">
+                            <label for="">:</label>
+                        </div>
+                        <div class="col-md-6">
+                            <a>
+                                <i class="fa fa-upload" (click)="smefileinput.click()"></i>
+                                <span  style="padding-left: 15px;">{{this.smeFileName}}</span> 
+                                <input hidden type="file" #smefileinput (change)="uploadSME($event)">
+                            </a>
+                            <!-- accept="application/vnd.ms-excel" -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 p-2">
+                    <div class="row">
+                        <div class="col-md-5" style="text-align: right;">
+                            <b><label for="associates">Associates</label></b>
+                        </div>
+                        <div class="col-md-1">
+                            <label for="">:</label>
+                        </div>
+                        <div class="col-md-6">
+                            <a>
+                                <i class="fa fa-upload" (click)="assocfileinput.click()"></i>
+                                <span style="padding-left: 15px;">{{this.associatesFileName}}</span> 
+                                <input hidden type="file" #assocfileinput (change)="uploadAssociates($event)">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <span  style="padding-right: 10px;"><button type="submit" class="btn btn-primary">Create</button></span>
+                    <span><button type="button" (click)="cancel()" class="btn btn-outline-primary">Cancel</button></span>
+                </div>
+                <br>
+            </div>
+        </div>
+    </form>
+</div>

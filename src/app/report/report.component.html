@@ -1,0 +1,130 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+    integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+    integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+    crossorigin="anonymous"></script>
+<app-navbar></app-navbar>
+
+
+
+<div class="container-fluid">
+    <!-- <div class="group" *ngFor="let event of getEventDetailsList(getEventType());let i = index">
+        <div class="boxboarder" style="background-color: rgb(159, 170, 159);">
+            <div class="collapseboarder">
+                <A (click)="isCollapsedAccepted = !isCollapsedAccepted">
+                    <i aria-hidden="true"
+                        [ngClass]="!isCollapsedAccepted ? 'fa fa-caret-down fa-fw' : 'fa fa-caret-right fa-fw'"></i>
+                        <div class="col-lg-8">
+                            <table class="table table-striped ">
+                      
+                             
+                              <thead>
+                                <tr>
+                                  <th>#</th>
+                                  <th>Slot</th>
+                                  <th>Date</th>
+                                  <th>Skills</th>
+                      
+                                </tr>
+                              </thead>
+                            
+                              <tbody>
+                                <tr class="table-info" >
+                                  <th scope="row">{{i+1 | number}}</th>
+                                  <td>{{ event.slot }}</td>
+                                  <td>{{ event.date | date:'yyyy-MM-dd' }}</td>
+                                  <td>{{ event.skills }}</td>
+                                
+                                </tr>
+                      
+                              </tbody>
+                      
+                            </table>
+                         
+                          </div>
+                </A>
+                <div [collapse]="isCollapsedAccepted" id="collapseBasic">
+                    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
+
+        <!-- Accordion card -->
+        <div class="card">
+
+            <!-- Card header -->
+            <div class="card-header" role="tab" id="headingOne1">
+                <table class="table table-striped ">
+
+
+                    <thead>
+                        <tr>
+                            <th width=10%>#</th>
+                            <th width=20%>Slot</th>
+                            <th width=30%>Date</th>
+                            <th width=40%>Skills</th>
+
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!--Accordion wrapper-->
+    <div class="accordion md-accordion"  *ngFor="let event of eventList;let i = index" [attr.id]="'collapseOne_' + i" role="tablist"
+        aria-multiselectable="true">
+
+        <!-- Accordion card -->
+        <div class="card">
+
+            <!-- Card header -->
+            <div class="card-header" role="tab" id="headingOne1">
+                <A (click)="isCollapsed = !isCollapsed ; appendChart(event.id,i)">
+                    <h5 class="mb-0">
+                        <table class="table table-striped ">
+
+
+
+
+                            <tbody>
+                                <tr class="table-info">
+                                    <th width=10% scope="row">{{i+1 | number}}</th>
+                                    <td width=20%>{{ event.slot }}</td>
+                                    <td width=30%>{{ event.date  | date:'yyyy-MM-dd'  }}</td>
+                                    <td width=40%>{{ event.skills }}</td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+                    </h5>
+                </A>
+            </div>
+
+            <!-- Card body -->
+            <div [collapse]="isCollapsed" id="collapseBasic" class="collapse show" role="tabpanel"
+                aria-labelledby="headingOne1" [attr.id]="'collapseOne_' + i">
+                    <div class="row">
+                        <div class="col-lg-6" id="chartContainer{{i}}" style="height: 370px; width: 100%;"></div>
+                        <div class="col-lg-6" id="chartContainer2{{ i}}" style="height: 370px; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- Accordion card -->
+
+        
+    </div>

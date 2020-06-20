@@ -1,0 +1,50 @@
+<app-navbar></app-navbar>
+<p id="demo">days:hours:minutes:seconds</p>
+<div style="text-align: center">
+    <div class="card cardboarder">
+      <div class="card-header cardheaderboarder headerstyle">
+       <div class="row">
+           <div class="col-md-2">
+               <b><label for="date">Date:</label></b>
+           </div>
+           <div class="col-md-2">
+            <span *ngIf="this.user?.adminFlag">{{ event.date}}</span>
+            <span *ngIf="!this.user?.adminFlag" class="text">{{ this.event?.date | date:'yyyy-MM-dd' }}</span>
+           </div>
+           <div class="col-md-2">
+            <b><label for="slot">Slot:</label></b>
+        </div>
+        <div class="col-md-2">
+            <span class="text">{{this.event?.slot}}</span>
+        </div>
+        <div class="col-md-2">
+            <b><label for="skills">Skills:</label></b>
+        </div>
+        <div class="col-md-2">
+            <span class="text">{{this.event?.skills}}</span>
+        </div>
+       </div>
+      </div>
+    </div>
+  </div>
+  <tabset *ngIf="!this.user.adminFlag" #caseTabs [justified]="true" type="pills">
+    <tab heading="Create Question">
+      <app-create-questioniare></app-create-questioniare>
+    </tab>
+    <tab heading="View Questions"(selectTab)="refreshData()">
+      <app-status #statusComponent></app-status>
+    </tab>
+    <tab heading="Leaderboard">
+      <app-leaderboard></app-leaderboard>
+    </tab>
+  </tabset>
+
+  <tabset *ngIf="this.user.adminFlag" #adminCaseTabs [justified]="true" type="pills">
+    <tab heading="Mail">
+      <app-mail></app-mail>
+    </tab>
+    <tab heading="View Questions">
+      <app-status #statusComponent ></app-status>
+    </tab>
+  </tabset>
+

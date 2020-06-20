@@ -1,0 +1,27 @@
+/* You can add global styles to this file, and also import other style files */
+html, body {
+  height:100%;
+  font-family: Roboto, Helvetica, Arial, sans-serif !important;
+}
+
+$body-bg: #fff;
+$body-color: #000;
+
+// Bootstrap 4
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+
+// Toastr
+@import "../node_modules/ngx-toastr/toastr.css";
+
+// Font-Awesome
+$fa-font-path:"../node_modules/font-awesome/fonts";
+@import "../node_modules/font-awesome/scss/font-awesome";
+
+.card-header #pageTitle {
+  color: #6D8594;
+  // background-color: #EFF3FA;
+  border-color: #d4e4f2;
+  text-transform: uppercase; 
+  padding: 2px 2px 2px 2px !important;
+}

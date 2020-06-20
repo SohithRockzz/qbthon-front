@@ -1,0 +1,983 @@
+<div class="boxboarder">
+    <i class="fa fa-download" (click)="exportToExcel()" style="font-size: 50px;padding-top: 5px;padding-right: 25px;"
+        aria-hidden="true"></i>
+    <div *ngIf="this.event?.role==='SME'" class="container-fluid">
+
+
+        <div class="group">
+            <div class="boxboarder">
+                <div class="collapseboarder" style="background-color: rgb(163, 163, 149);">
+                    <A (click)="isCollapsedCheck = !isCollapsedCheck">
+                        <i aria-hidden="true"
+                            [ngClass]="!isCollapsedCheck ? 'fa fa-caret-down fa-fw' : 'fa fa-caret-right fa-fw'"></i>
+                        <strong> Questions submiited by associates</strong>
+                    </A>
+                    <div [collapse]="isCollapsedCheck" id="collapseBasic">
+
+
+                        <div class="group">
+                            <div class="boxboarder">
+                                <div class="collapseboarder" style="background-color: orange">
+                                    <A (click)="isCollapsedUnderReviewingSME = !isCollapsedUnderReviewingSME">
+                                        <i aria-hidden="true"
+                                            [ngClass]="!isCollapsedUnderReviewingSME ? 'fa fa-caret-down fa-fw' : 'fa fa-caret-right fa-fw'"></i>
+                                        <strong> Under Review ({{smeQuestionsMapList['Under Review']?.length}})</strong>
+                                    </A>
+                                    <div [collapse]="isCollapsedUnderReviewingSME" id="collapseBasic">
+                                        <table class="table table-striped ">
+
+                                            <!--Table head-->
+                                            <thead>
+                                                <tr>
+                                                    <th>Sr No</th>
+                                                    <th>Stack</th>
+                                                    <th>Difficulty</th>
+                                                    <th>Multiple</th>
+                                                    <th>Category</th>
+                                                    <th>Question</th>
+                                                    <th>Assigned SME ID</th>
+                                                    <th>View/Details</th>
+
+                                                </tr>
+                                            </thead>
+                                            <!--Table head-->
+
+                                            <!--Table body-->
+                                            <tbody>
+                                                <tr class="table-info"
+                                                    *ngFor="let question of smeQuestionsMapList['Under Review'];let i = index">
+                                                    <th scope="row">{{i+1 | number}}</th>
+                                                    <td>{{question.stack}}</td>
+                                                    <td>{{question.difficulty}}</td>
+                                                    <td>{{question.multiple}}</td>
+                                                    <td>{{question.category}}</td>
+                                                    <td>{{question.description}}</td>
+                                                    <td>{{question.assignedSme}}</td>
+                                                    <td><i class="fa fa-pencil-square-o" style="font-size: 35px;"
+                                                            aria-hidden="true" (click)="editQuestion(question)"></i>
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                            <!--Table body-->
+
+
+                                        </table>
+                                        <!--Table-->
+                                        <!-- Modal -->
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="group">
+                            <div class="boxboarder">
+                                <div class="collapseboarder" style="background-color:green">
+                                    <A (click)="isCollapsedAcceptedSME = !isCollapsedAcceptedSME">
+                                        <i aria-hidden="true"
+                                            [ngClass]="!isCollapsedAcceptedSME ? 'fa fa-caret-down fa-fw' : 'fa fa-caret-right fa-fw'"></i>
+                                        <strong> Accepted ({{smeQuestionsMapList['Accepted']?.length}})</strong>
+                                    </A>
+                                    <div [collapse]="isCollapsedAcceptedSME" id="collapseBasic">
+                                        <table class="table table-striped ">
+
+                                            <!--Table head-->
+                                            <thead>
+                                                <tr>
+                                                    <th>Sr No</th>
+                                                    <th>Stack</th>
+                                                    <th>Difficulty</th>
+                                                    <th>Multiple</th>
+                                                    <th>Category</th>
+                                                    <th>Question</th>
+                                                    <th>Assigned SME ID</th>
+                                                    <th>View/Details</th>
+
+                                                </tr>
+                                            </thead>
+                                            <!--Table head-->
+
+                                            <!--Table body-->
+                                            <tbody>
+                                                <tr class="table-info"
+                                                    *ngFor="let question of smeQuestionsMapList['Accepted'];let i = index">
+                                                    <th scope="row">{{i+1 | number}}</th>
+                                                    <td>{{question.stack}}</td>
+                                                    <td>{{question.difficulty}}</td>
+                                                    <td>{{question.multiple}}</td>
+                                                    <td>{{question.category}}</td>
+                                                    <td>{{question.description}}</td>
+                                                    <td>{{question.assignedSme}}</td>
+                                                    <td><i class="fa fa-pencil-square-o" style="font-size: 35px;"
+                                                            aria-hidden="true" (click)="editQuestion(question)"></i>
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                            <!--Table body-->
+
+
+                                        </table>
+                                        <!--Table-->
+                                        <!-- Modal -->
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="group">
+                            <div class="boxboarder">
+                                <div class="collapseboarder" style="background-color: royalblue">
+                                    <A (click)="isCollapsedPartiallyAppSME = !isCollapsedPartiallyAppSME">
+                                        <i aria-hidden="true"
+                                            [ngClass]="!isCollapsedPartiallyAppSME ? 'fa fa-caret-down fa-fw' : 'fa fa-caret-right fa-fw'"></i>
+                                        <strong> Partially Accepted
+                                            ({{smeQuestionsMapList['Partially Accepted']?.length}})</strong>
+                                    </A>
+                                    <div [collapse]="isCollapsedPartiallyAppSME" id="collapseBasic">
+                                        <table class="table table-striped ">
+
+                                            <!--Table head-->
+                                            <thead>
+                                                <tr>
+                                                    <th>Sr No</th>
+                                                    <th>Stack</th>
+                                                    <th>Difficulty</th>
+                                                    <th>Multiple</th>
+                                                    <th>Category</th>
+                                                    <th>Question</th>
+                                                    <th>Assigned SME ID</th>
+                                                    <th>View/Details</th>
+
+                                                </tr>
+                                            </thead>
+                                            <!--Table head-->
+
+                                            <!--Table body-->
+                                            <tbody>
+                                                <tr class="table-info"
+                                                    *ngFor="let question of smeQuestionsMapList['Partially Accepted'];let i = index">
+                                                    <th scope="row">{{i+1 | number}}</th>
+                                                    <td>{{question.stack}}</td>
+                                                    <td>{{question.difficulty}}</td>
+                                                    <td>{{question.multiple}}</td>
+                                                    <td>{{question.category}}</td>
+                                                    <td>{{question.description}}</td>
+                                                    <td>{{question.assignedSme}}</td>
+                                                    <td><i class="fa fa-pencil-square-o" style="font-size: 35px;"
+                                                            aria-hidden="true" (click)="editQuestion(question)"></i>
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                            <!--Table body-->
+
+
+                                        </table>
+                                        <!--Table-->
+                                        <!-- Modal -->
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="group">
+                            <div class="boxboarder">
+                                <div class="collapseboarder" style="background-color: red">
+                                    <A (click)="isCollapsedRejectedSME = !isCollapsedRejectedSME">
+                                        <i aria-hidden="true"
+                                            [ngClass]="!isCollapsedRejectedSME ? 'fa fa-caret-down fa-fw' : 'fa fa-caret-right fa-fw'"></i>
+                                        <strong> Rejected ({{smeQuestionsMapList['Rejected']?.length}})</strong>
+                                    </A>
+                                    <div [collapse]="isCollapsedRejectedSME" id="collapseBasic">
+                                        <table class="table table-striped ">
+
+                                            <!--Table head-->
+                                            <thead>
+                                                <tr>
+                                                    <th>Sr No</th>
+                                                    <th>Stack</th>
+                                                    <th>Difficulty</th>
+                                                    <th>Multiple</th>
+                                                    <th>Category</th>
+                                                    <th>Question</th>
+                                                    <th>Assigned SME ID</th>
+                                                    <th>View/Details</th>
+
+                                                </tr>
+                                            </thead>
+                                            <!--Table head-->
+
+                                            <!--Table body-->
+                                            <tbody>
+                                                <tr class="table-info"
+                                                    *ngFor="let question of smeQuestionsMapList['Rejected'];let i = index">
+                                                    <th scope="row">{{i+1 | number}}</th>
+                                                    <td>{{question.stack}}</td>
+                                                    <td>{{question.difficulty}}</td>
+                                                    <td>{{question.multiple}}</td>
+                                                    <td>{{question.category}}</td>
+                                                    <td>{{question.description}}</td>
+                                                    <td>{{question.assignedSme}}</td>
+                                                    <td><i class="fa fa-pencil-square-o" style="font-size: 35px;"
+                                                            aria-hidden="true" (click)="editQuestion(question)"></i>
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                            <!--Table body-->
+
+
+                                        </table>
+                                        <!--Table-->
+                                        <!-- Modal -->
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div style="text-align: right;" #epltable>
+
+        <table class="table table-bordered" style="display: none;">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Stack</th>
+                    <th>Difficulty</th>
+                    <th>Multiple</th>
+                    <th>Category</th>
+                    <th>Topic</th>
+                    <th>Status</th>
+                    <th>Question</th>
+                    <th>Option One</th>
+                    <th>Score One</th>
+                    <th>Option Two</th>
+                    <th>Score Two</th>
+                    <th>Option Three</th>
+                    <th>Score Three</th>
+                    <th>Option Four</th>
+                    <th>Score Four</th>
+                    <th>Source</th>
+                    <th>Associate</th>
+                    <th>Stack</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let question of questionsExcelList">
+                    <td>{{question.stack}}</td>
+                    <td>{{question.difficulty}}</td>
+                    <td>{{question.multiple}}</td>
+                    <td>{{question.category}}</td>
+                    <td>{{question.topic}}</td>
+                    <td>{{question.status}}</td>
+                    <td>{{question.question}}</td>
+                    <td>{{question.option_One}}</td>
+                    <td>{{question.score_One}}</td>
+                    <td>{{question.option_Two}}</td>
+                    <td>{{question.score_Two}}</td>
+                    <td>{{question.option_Three}}</td>
+                    <td>{{question.score_Three}}</td>
+                    <td>{{question.option_Four}}</td>
+                    <td>{{question.score_Four}}</td>
+                    <td>{{question.source}}</td>
+                    <td>{{question.associate_Id}}</td>
+                    <td>{{question.stack}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="container-fluid">
+        <div class="group">
+            <div class="boxboarder">
+                <div class="collapseboarder" style="background-color: rgb(163, 163, 149);">
+                    <A (click)="isCollapsedSubmitted = !isCollapsedSubmitted">
+                        <i aria-hidden="true"
+                            [ngClass]="!isCollapsedSubmitted ? 'fa fa-caret-down fa-fw' : 'fa fa-caret-right fa-fw'"></i>
+                        <strong> Questions Submitted</strong>
+                    </A>
+                    <div [collapse]="isCollapsedSubmitted" id="collapseBasic">
+
+
+
+                        <div class="container-fluid">
+                            <div class="group">
+                                <div class="boxboarder">
+                                    <div class="collapseboarder" style="background-color: yellow;">
+                                        <A (click)="isCollapsedUnderReviewing = !isCollapsedUnderReviewing">
+                                            <i aria-hidden="true"
+                                                [ngClass]="!isCollapsedUnderReviewing ? 'fa fa-caret-down fa-fw' : 'fa fa-caret-right fa-fw'"></i>
+                                            <strong> Under Review
+                                                ({{questionsMapList['Under Review']?.length}})</strong>
+                                        </A>
+                                        <div [collapse]="isCollapsedUnderReviewing" id="collapseBasic">
+                                            <table class="table table-striped ">
+
+                                                <!--Table head-->
+                                                <thead>
+                                                    <tr>
+                                                        <th>Sr No</th>
+                                                        <th>Stack</th>
+                                                        <th>Difficulty</th>
+                                                        <th>Multiple</th>
+                                                        <th>Category</th>
+                                                        <th>Question</th>
+                                                        <th>Assigned SME ID</th>
+                                                        <th>View/Details</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <!--Table head-->
+
+                                                <!--Table body-->
+                                                <tbody>
+                                                    <tr class="table-info"
+                                                        *ngFor="let question of questionsMapList['Under Review'];let i = index">
+                                                        <th scope="row">{{i+1 | number}}</th>
+                                                        <td>{{question.stack}}</td>
+                                                        <td>{{question.difficulty}}</td>
+                                                        <td>{{question.multiple}}</td>
+                                                        <td>{{question.category}}</td>
+                                                        <td>{{question.description}}</td>
+                                                        <td>{{question.assignedSme}}</td>
+                                                        <td><i class="fa fa-pencil-square-o" style="font-size: 35px;"
+                                                                aria-hidden="true" (click)="editQuestion(question)"></i>
+                                                        </td>
+                                                    </tr>
+
+                                                </tbody>
+                                                <!--Table body-->
+
+
+                                            </table>
+                                            <!--Table-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="container-fluid">
+                            <div class="group">
+                                <div class="boxboarder" style="background-color: green;">
+                                    <div class="collapseboarder">
+                                        <A (click)="isCollapsedAccepted = !isCollapsedAccepted">
+                                            <i aria-hidden="true"
+                                                [ngClass]="!isCollapsedAccepted ? 'fa fa-caret-down fa-fw' : 'fa fa-caret-right fa-fw'"></i>
+                                            <strong> Accepted ({{questionsMapList['Accepted']?.length}})</strong>
+                                        </A>
+                                        <div [collapse]="isCollapsedAccepted" id="collapseBasic">
+                                            <table class="table table-striped ">
+
+                                                <!--Table head-->
+                                                <thead>
+                                                    <tr>
+                                                        <th>Sr No</th>
+                                                        <th>Stack</th>
+                                                        <th>Difficulty</th>
+                                                        <th>Multiple</th>
+                                                        <th>Category</th>
+                                                        <th>Question</th>
+                                                        <th>Assigned SME ID</th>
+                                                        <th>View/Details</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <!--Table head-->
+
+                                                <!--Table body-->
+                                                <tbody>
+                                                    <tr class="table-info"
+                                                        *ngFor="let question of questionsMapList['Accepted'];let i = index">
+                                                        <th scope="row">{{i+1 | number}}</th>
+                                                        <td>{{question.stack}}</td>
+                                                        <td>{{question.difficulty}}</td>
+                                                        <td>{{question.multiple}}</td>
+                                                        <td>{{question.category}}</td>
+                                                        <td>{{question.description}}</td>
+                                                        <td>{{question.assignedSme}}</td>
+                                                        <td><i class="fa fa-pencil-square-o" style="font-size: 35px;"
+                                                                aria-hidden="true" (click)="editQuestion(question)"></i>
+                                                        </td>
+                                                    </tr>
+
+                                                </tbody>
+                                                <!--Table body-->
+
+
+                                            </table>
+                                            <!--Table-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container-fluid">
+                            <div class="group">
+                                <div class="boxboarder" style="background-color: blue;">
+                                    <div class="collapseboarder">
+                                        <A (click)="isCollapsedPartiallyApp = !isCollapsedPartiallyApp">
+                                            <i aria-hidden="true"
+                                                [ngClass]="!isCollapsedPartiallyApp ? 'fa fa-caret-down fa-fw' : 'fa fa-caret-right fa-fw'"></i>
+                                            <strong> Partially Accepted
+                                                ({{questionsMapList['Partially Accepted']?.length}})</strong>
+                                        </A>
+                                        <div [collapse]="isCollapsedPartiallyApp" id="collapseBasic">
+                                            <table class="table table-striped ">
+
+                                                <!--Table head-->
+                                                <thead>
+                                                    <tr>
+                                                        <th>Sr No</th>
+                                                        <th>Blooms Stack</th>
+                                                        <th>Difficulty</th>
+                                                        <th>Multiple</th>
+                                                        <th>Category</th>
+                                                        <th>Question</th>
+                                                        <th>Assigned SME ID</th>
+                                                        <th>View/Details</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <!--Table head-->
+
+                                                <!--Table body-->
+                                                <tbody>
+                                                    <tr class="table-info"
+                                                        *ngFor="let question of questionsMapList['Partially Accepted'];let i = index">
+                                                        <th scope="row">{{i+1 | number}}</th>
+                                                        <td>{{question.stack}}</td>
+                                                        <td>{{question.difficulty}}</td>
+                                                        <td>{{question.multiple}}</td>
+                                                        <td>{{question.category}}</td>
+                                                        <td>{{question.description}}</td>
+                                                        <td>{{question.assignedSme}}</td>
+                                                        <td><i class="fa fa-pencil-square-o" style="font-size: 35px;"
+                                                                aria-hidden="true" (click)="editQuestion(question)"></i>
+                                                        </td>
+                                                    </tr>
+
+                                                </tbody>
+                                                <!--Table body-->
+
+
+                                            </table>
+                                            <!--Table-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container-fluid">
+                            <div class="group">
+                                <div class="boxboarder" style="background-color: red;">
+                                    <div class="collapseboarder">
+                                        <A (click)="isCollapsedRejected = !isCollapsedRejected">
+                                            <i aria-hidden="true"
+                                                [ngClass]="!isCollapsedRejected ? 'fa fa-caret-down fa-fw' : 'fa fa-caret-right fa-fw'"></i>
+                                            <strong> Rejected ({{questionsMapList['Rejected']?.length}})</strong>
+                                        </A>
+                                        <div [collapse]="isCollapsedRejected" id="collapseBasic">
+                                            <table class="table table-striped ">
+
+                                                <!--Table head-->
+                                                <thead>
+                                                    <tr>
+                                                        <th>Sr No</th>
+                                                        <th>Stack</th>
+                                                        <th>Difficulty</th>
+                                                        <th>Multiple</th>
+                                                        <th>Category</th>
+                                                        <th>Question</th>
+                                                        <th>Assigned SME ID</th>
+                                                        <th>View/Details</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <!--Table head-->
+
+                                                <!--Table body-->
+                                                <tbody>
+                                                    <tr class="table-info"
+                                                        *ngFor="let question of questionsMapList['Rejected'];let i = index">
+                                                        <th scope="row">{{i+1 | number}}</th>
+                                                        <td>{{question.stack}}</td>
+                                                        <td>{{question.difficulty}}</td>
+                                                        <td>{{question.multiple}}</td>
+                                                        <td>{{question.category}}</td>
+                                                        <td>{{question.description}}</td>
+                                                        <td>{{question.assignedSme}}</td>
+                                                        <td><i class="fa fa-pencil-square-o" style="font-size: 35px;"
+                                                                aria-hidden="true" (click)="editQuestion(question)"></i>
+                                                        </td>
+                                                    </tr>
+
+                                                </tbody>
+                                                <!--Table body-->
+
+
+                                            </table>
+                                            <!--Table-->
+                                            <!-- Modal -->
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="updateQuestionModal" [style.display]="showModal?'block':'none'"
+                            tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Update Question</h5>
+                                        <button type="button" (click)="hideModal()" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form [formGroup]="questionCreationForm">
+                                            <div class="group">
+                                                <div class="boxboarder">
+                                                    <br>
+                                                    <div class="col-md-12 p-2">
+                                                        <div class="row">
+                                                            <div class="col-md-5" style="text-align: right;">
+                                                                <b><label for="stack">Stack</label></b>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <label for="">:</label>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <select style="width: 58%;"
+                                                                    class="form-control form-control-sm"
+                                                                    formControlName="stack" id="stack" name="stack"
+                                                                    [(ngModel)]="this.questionnaire.stack" required>
+                                                                    <option selected value=''>Please Select</option>
+                                                                    <option value='Java'>Java</option>
+                                                                    <option value='.net'>.Net</option>
+                                                                    <option value='Angular'>Angular</option>
+                                                                </select>
+                                                                <div *ngIf=" submitted && stack.errors?.required">
+                                                                    <span style="color: red;padding:2px">Stack is a
+                                                                        required field</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 p-2">
+                                                        <div class="row">
+                                                            <div class="col-md-5" style="text-align: right;">
+                                                                <b><label for="source">Source</label></b>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <label for="">:</label>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <input class="form-control form-control-sm"
+                                                                    formControlName="source" id="source" name="source"
+                                                                    class="text"
+                                                                    [(ngModel)]="this.questionnaire.source">
+                                                                <div *ngIf=" submitted && source.errors?.required">
+                                                                    <span style="color: red;padding:2px">Source is a
+                                                                        required field</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 p-2">
+                                                        <div class="row">
+                                                            <div class="col-md-5" style="text-align: right;">
+                                                                <b><label for="category">Category</label></b>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <label for="">:</label>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <select style="width: 58%;"
+                                                                    class="form-control form-control-sm"
+                                                                    formControlName="category" id="category"
+                                                                    name="category"
+                                                                    [(ngModel)]="this.questionnaire.category" required>
+                                                                    <option selected value=''>Please Select</option>
+                                                                    <option value='Application'>Application</option>
+                                                                    <option value='Analytics'>Analytics</option>
+                                                                    <option value='Servers'>Servers</option>
+                                                                </select>
+                                                                <div *ngIf=" submitted && category.errors?.required">
+                                                                    <span style="color: red;padding:2px">Category is a
+                                                                        required field</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 p-2">
+                                                        <div class="row">
+                                                            <div class="col-md-5" style="text-align: right;">
+                                                                <b><label for="difficulty-level">Difficulty
+                                                                        Level</label></b>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <label for="">:</label>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <select style="width: 58%;"
+                                                                    class="form-control form-control-sm"
+                                                                    [(ngModel)]="this.questionnaire.difficulty"
+                                                                    formControlName="difficulty" id="difficulty"
+                                                                    name="difficulty" required>
+                                                                    <option selected value=''>Please Select</option>
+                                                                    <option value='Easy'>Easy</option>
+                                                                    <option value='Medium'>Medium</option>
+                                                                    <option value='Hard'>Hard</option>
+                                                                </select>
+                                                                <div *ngIf=" submitted && difficulty.errors?.required">
+                                                                    <span style="color: red;padding:2px">Difficulty is a
+                                                                        required
+                                                                        field</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 p-2">
+                                                        <div class="row">
+                                                            <div class="col-md-5" style="text-align: right;">
+                                                                <b><label for="multiple-answer">Multiple
+                                                                        Answer</label></b>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <label for="">:</label>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <select style="width: 58%;"
+                                                                    class="form-control form-control-sm"
+                                                                    formControlName="multiple" id="multiple-answer"
+                                                                    [(ngModel)]="this.questionnaire.multiple"
+                                                                    name="multiple-answer"
+                                                                    (change)="setMultipleValidators()" required>
+                                                                    <option selected value=''>Please Select</option>
+                                                                    <option value='yes'>Yes</option>
+                                                                    <option value='no'>No</option>
+                                                                </select>
+                                                                <div *ngIf=" submitted && multiple.errors?.required">
+                                                                    <span style="color: red;padding:2px">Multiple Answer
+                                                                        is a required
+                                                                        field</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 p-2">
+                                                        <div class="row">
+                                                            <div class="col-md-5" style="text-align: right;">
+                                                                <b><label for="topic">Topic</label></b>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <label for="">:</label>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <input class="form-control form-control-sm"
+                                                                    formControlName="topic" id="topic" name="topic"
+                                                                    class="text" [(ngModel)]="this.questionnaire.topic">
+                                                                <div *ngIf=" submitted && topic.errors?.required">
+                                                                    <span style="color: red;padding:2px">Topic is a
+                                                                        required field</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 p-2">
+                                                        <div class="row">
+                                                            <div class="col-md-5" style="text-align: right;">
+                                                                <b><label for="description">Description</label></b>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <label for="">:</label>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="col-md-4"
+                                                                    style="padding-left: 0px;padding-right: 7px">
+                                                                    <textarea style="width: 187%;"
+                                                                        class="form-control form-control-sm"
+                                                                        [(ngModel)]="this.questionnaire.description"
+                                                                        formControlName="description" id="description"
+                                                                        name="description" type="text">
+                                        </textarea>
+                                                                    <div
+                                                                        *ngIf=" submitted && description.errors?.required">
+                                                                        <span style="color: red;padding:2px">Description
+                                                                            is a required
+                                                                            field</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 p-2">
+                                                        <div class="row">
+                                                            <div class="col-md-5" style="text-align: right;">
+                                                                <b><label for="option">Option 1</label></b>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <label for="">:</label>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <input class="form-control form-control-sm"
+                                                                    formControlName="option1" id="option1"
+                                                                    name="option1" class="text"
+                                                                    [(ngModel)]="this.questionnaire.optionOne" required>
+                                                                <div *ngIf=" submitted && option1.errors?.required">
+                                                                    <span style="color: red;padding:2px">Option1 is a
+                                                                        required field</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 p-2">
+                                                        <div class="row">
+                                                            <div class="col-md-5" style="text-align: right;">
+                                                                <b><label for="score">Score 1</label></b>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <label for="">:</label>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <input class="form-control form-control-sm"
+                                                                    formControlName="score1" id="score1" name="score1"
+                                                                    class="text"
+                                                                    [(ngModel)]="this.questionnaire.scoreOne" required>
+                                                                <div *ngIf=" submitted && score1.errors?.required">
+                                                                    <span style="color: red;padding:2px">Score1 is a
+                                                                        required field</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 p-2">
+                                                        <div class="row">
+                                                            <div class="col-md-5" style="text-align: right;">
+                                                                <b><label for="option2">Option 2</label></b>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <label for="">:</label>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <input class="form-control form-control-sm"
+                                                                    formControlName="option2" id="option2"
+                                                                    name="option2" class="text"
+                                                                    [(ngModel)]="this.questionnaire.optionTwo" required>
+                                                                <div *ngIf=" submitted && option2.errors?.required">
+                                                                    <span style="color: red;padding:2px">Option2 is a
+                                                                        required field</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 p-2">
+                                                        <div class="row">
+                                                            <div class="col-md-5" style="text-align: right;">
+                                                                <b><label for="score">Score 2</label></b>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <label for="">:</label>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <input class="form-control form-control-sm"
+                                                                    formControlName="score2" id="score2" name="score2"
+                                                                    class="text"
+                                                                    [(ngModel)]="this.questionnaire.scoreTwo" required>
+                                                                <div *ngIf=" submitted && score2.errors?.required">
+                                                                    <span style="color: red;padding:2px">Score2 is a
+                                                                        required field</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 p-2">
+                                                        <div class="row">
+                                                            <div class="col-md-5" style="text-align: right;">
+                                                                <b><label for="option">Option 3</label></b>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <label for="">:</label>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <input class="form-control form-control-sm"
+                                                                    formControlName="option3" id="option3"
+                                                                    name="option3" class="text"
+                                                                    [(ngModel)]="this.questionnaire.optionThree"
+                                                                    required>
+                                                                <div *ngIf=" submitted && option3.errors?.required">
+                                                                    <span style="color: red;padding:2px">Option3 is a
+                                                                        required field</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 p-2">
+                                                        <div class="row">
+                                                            <div class="col-md-5" style="text-align: right;">
+                                                                <b><label for="score">Score 3</label></b>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <label for="">:</label>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <input class="form-control form-control-sm"
+                                                                    formControlName="score3" id="score3" name="score3"
+                                                                    class="text"
+                                                                    [(ngModel)]="this.questionnaire.scoreThree"
+                                                                    required>
+                                                                <div *ngIf=" submitted && score3.errors?.required">
+                                                                    <span style="color: red;padding:2px">Score3 is a
+                                                                        required field</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 p-2">
+                                                        <div class="row">
+                                                            <div class="col-md-5" style="text-align: right;">
+                                                                <b><label for="option">Option 4</label></b>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <label for="">:</label>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <input class="form-control form-control-sm"
+                                                                    formControlName="option4" id="option4"
+                                                                    name="option4" class="text"
+                                                                    [(ngModel)]="this.questionnaire.optionFour"
+                                                                    required>
+                                                                <div *ngIf=" submitted && option4.errors?.required">
+                                                                    <span style="color: red;padding:2px">Option4 is a
+                                                                        required field</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 p-2">
+                                                        <div class="row">
+                                                            <div class="col-md-5" style="text-align: right;">
+                                                                <b><label for="score">Score 4</label></b>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <label for="">:</label>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <input class="form-control form-control-sm"
+                                                                    formControlName="score4" id="score4" name="score4"
+                                                                    class="text"
+                                                                    [(ngModel)]="this.questionnaire.scoreFour" required>
+                                                                <div *ngIf=" submitted && score4.errors?.required">
+                                                                    <span style="color: red;padding:2px">Score4 is a
+                                                                        required field</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 p-2">
+                                                        <div class="row">
+                                                            <div class="col-md-5" style="text-align: right;">
+                                                                <b><label for="score">status</label></b>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <label for="">:</label>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <select style="width: 58%;"
+                                                                    class="form-control form-control-sm"
+                                                                    [(ngModel)]="this.questionnaire.status"
+                                                                    [(ngModel)]="this.questionnaire.status"
+                                                                    formControlName="status"
+                                                                    (change)="setCommentsValidators()" id="status"
+                                                                    name="status" required>
+                                                                    <option selected value='' disabled>Please Select
+                                                                    </option>
+                                                                    <option value='Under Review'>UnderReview</option>
+                                                                    <option value='Accepted'>Accepted</option>
+                                                                    <option value='Partially Approved'>Partially
+                                                                        Approved</option>
+                                                                    <option value='Rejected'>Rejected</option>
+                                                                </select>
+                                                                <div *ngIf=" submitted && status.errors?.required">
+                                                                    <span style="color: red;padding:2px"> status is a
+                                                                        required field</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 p-2">
+                                                        <div class="row">
+                                                            <div class="col-md-5" style="text-align: right;">
+                                                                <b><label for="score">Comments</label></b>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <label for="">:</label>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <input class="form-control form-control-sm"
+                                                                    formControlName="comment" id="comment"
+                                                                    name="comment" class="text"
+                                                                    [(ngModel)]="this.questionnaire.comment">
+                                                                <div *ngIf=" submitted && comment.errors?.required">
+                                                                    <span style="color: red;padding:2px">Comments is a
+                                                                        required field</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                            (click)="hideModal()">Close</button>
+                                        <button type="button" class="btn btn-primary" (click)="updateQuestion()">Save
+                                            changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
