@@ -21,6 +21,7 @@ export class PracticeComponent implements OnInit {
   isCollapsedStatus = true;
   isCollapsedCreating = true;
   practiceQuestionsList: Questionnaire[] = [];
+  filteredPracticeQuestionsList: Questionnaire[] = [];
 
   constructor(private formBuilder: FormBuilder, private eventService: EventService, private toastr: ToastrService) { }
 
@@ -42,6 +43,7 @@ export class PracticeComponent implements OnInit {
       option4: ['', Validators.required],
       score4: ['', Validators.required],
     });
+    this.user = this.eventService.getUser();
     this.getPracticeQuestions();
   }
 
@@ -107,12 +109,26 @@ export class PracticeComponent implements OnInit {
   }
 
   getPracticeQuestions(){
-    this.eventService.getUserQuestionList(null,this.user.id,'Practice').subscribe(data=>{
+    this.eventService.getUserQuestionList(this.eventService.getId(),this.user.id,'Practice').subscribe(data=>{
       this.practiceQuestionsList = data;
-      if(this.practiceQuestionsList.length>0){
+      this.filterQuestionList(this.practiceQuestionsList);
+      if(this.filteredPracticeQuestionsList.length>0){
         this.questionCreationForm.disable();
       }
     })
+  }
+
+  filterQuestionList(practiceList: Questionnaire[]){
+    if(practiceList['Under Review'].length>0){
+      this.filteredPracticeQuestionsList = practiceList['Under Review'];
+    }else if(practiceList['Accepted'].length>0){
+      this.filteredPracticeQuestionsList = practiceList['Accepted'];
+    }else if(practiceList['Rejected'].length>0){
+      this.filteredPracticeQuestionsList = practiceList['Rejected'];
+    }else{
+      this.filteredPracticeQuestionsList = practiceList['Partially Approved'];
+    }
+    console.log(this.filteredPracticeQuestionsList);
   }
 
 
@@ -129,6 +145,7 @@ export class PracticeComponent implements OnInit {
     this.questionnaire.type = 'Practice';
     const data = new FormData();
     data.append('questionnaire', JSON.stringify(this.questionnaire));
+    data.append('eventId',this.eventService.getId())
     data.append('userId', this.user.id);
     console.log(this.questionnaire);
     this.eventService.createQuestionnaire(data).subscribe(res => {

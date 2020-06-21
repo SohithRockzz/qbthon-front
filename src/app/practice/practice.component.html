@@ -25,8 +25,12 @@
                                             <div class="col-md-6">
                                                 <select style="width: 36%;" class="form-control form-control-sm" formControlName="stack"
                                                     id="stack" name="stack" [(ngModel)]="this.questionnaire.stack" required>
-                                                    <option selected value='' disabled>Please Select</option>
-                                                    <option *ngFor="let stack of stackList" value="{{stack}}">{{stack}}</option>
+                                                    <option value="" disabled selected>Choose your skills</option>
+                                                    <option value="java">Java</option>
+                                                    <option value=".net">.Net</option>
+                                                    <option value="angular">Angular</option>
+                                                    <option value="html">HTML</option>
+                                                    <option value="css">CSS</option>
                                                 </select>
                                                 <div *ngIf=" submitted && stack.errors?.required">
                                                     <span style="color: red;padding:2px">Stack is a required field</span>
@@ -320,33 +324,26 @@
                                 <th>Sr No</th>
                                 <th>Stack</th>
                                 <th>Difficulty</th>
-                                <th>Multiple</th>
                                 <th>Category</th>
-                                <th>Question</th>
+                                <th>Description</th>
                                 <th>Assigned SME ID</th>
-                                <th>View/Details</th>
-
+                                <th>Comments</th>
+                                <th>Question Status</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr class="table-info"
-                                *ngFor="let question of practiceQuestionsList;let i = index">
+                                *ngFor="let question of filteredPracticeQuestionsList;let i = index">
                                 <th scope="row">{{i+1 | number}}</th>
                                 <td>{{question.stack}}</td>
                                 <td>{{question.difficulty}}</td>
-                                <td>{{question.multiple}}</td>
                                 <td>{{question.category}}</td>
                                 <td>{{question.description}}</td>
                                 <td>{{question.assignedSme}}</td>
-                                <td><i class="fa fa-pencil-square-o" style="font-size: 35px;"
-                                        aria-hidden="true" (click)="editQuestion(question)"></i>
-                                </td>
+                                <td>{{question.comments}}</td>
+                                <td>{{question.status}}</td>
                             </tr>
-
                         </tbody>
-                        <!--Table body-->
-
-
                     </table>
                     <!--Table-->
                 </div>

@@ -136,18 +136,28 @@ export class DashboardComponent implements OnInit {
   }
 
   editEvent(event:EventDetails){
-    if(event.nomination||this.user.adminFlag||event.role==='SME'){
-      console.log(event);
-      this.eventService.setEvent(event);
-      this.router.navigate(['/edit']);
-      if(this.user.adminFlag){
-        this.eventService.setSelectedTab('mail');
+    // if(this.checkDate(event)){
+      if(event.nomination||this.user.adminFlag||event.role==='SME'){
+        console.log(event);
+        this.eventService.setEvent(event);
+        this.router.navigate(['/edit']);
+        if(this.user.adminFlag){
+          this.eventService.setSelectedTab('mail');
+        }else{
+          this.eventService.setSelectedTab('createquestion');
+        }
       }else{
-        this.eventService.setSelectedTab('createquestion');
+        this.toastr.error('Please Nominate to Participate');
       }
-    }else{
-      this.toastr.error('Please Nominate to Participate');
-    }
-    
+    // }else{
+    //   this.toastr.error('Event not started');
+    // }
   }
+  // checkDate(event: EventDetails):boolean{
+  //   if(event.date){
+  //     return true;
+  //   }else{
+  //     return false;
+  //   }
+  // }
 }

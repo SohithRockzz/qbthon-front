@@ -116,7 +116,7 @@ export class EventService {
         let params = new HttpParams();
         params = params.append('eventId',eventId);
         params = params.append('userId',userId);
-        params = params.append('category',category);
+        params = params.append('type',category);
         return this.httpClient.get<Questionnaire[]>(this.backendUrlQuestion + '/getUserQuestionList',{params: params});
     }
 
