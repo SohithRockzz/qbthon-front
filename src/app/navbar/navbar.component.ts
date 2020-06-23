@@ -38,6 +38,7 @@ export class NavbarComponent implements OnInit {
       }
     }
     if(selection==='reports'){
+      console.log("inside report");
       this.router.navigate(['/report'])
     }
   }
