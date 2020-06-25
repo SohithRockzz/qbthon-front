@@ -3,6 +3,8 @@
     <form (ngSubmit)="createEvent()" [formGroup]="eventCreationForm">
         <div class="group">
             <div class="boxboarder">
+                <i class="fa fa-download" (click)="downloadTemplate()" style="font-size: 50px;padding-top: 5px;padding-right: 25px;"
+                aria-hidden="true"></i>
                 <h4 style="text-align: center;color: blue;">Create Event</h4>
                 <div class="col-md-12 p-2">
                     <div class="row">

@@ -1,4 +1,7 @@
 <div class="container-fluid">
+    <div style="text-align: right;">
+        <i class="fa fa-download" (click)="downloadTemplate()" style="font-size: 50px;padding-top: 5px;padding-right: 25px;"
+            aria-hidden="true"></i></div>
     <form (ngSubmit)="createQuestion(questionCreationForm)" [formGroup]="questionCreationForm">
         <div class="group">
             <div class="boxboarder">

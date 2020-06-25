@@ -1,9 +1,8 @@
 <div class="boxboarder">
-    <i class="fa fa-download" (click)="exportToExcel()" style="font-size: 50px;padding-top: 5px;padding-right: 25px;"
-        aria-hidden="true"></i>
+    <div style="text-align: right;">
+    <i *ngIf="this.user?.adminFlag"class="fa fa-download" (click)="exportToExcel()" style="font-size: 50px;padding-top: 5px;padding-right: 25px;"
+        aria-hidden="true"></i></div>
     <div *ngIf="this.event?.role==='SME'" class="container-fluid">
-
-
         <div class="group">
             <div class="boxboarder">
                 <div class="collapseboarder" style="background-color: rgb(163, 163, 149);">
@@ -284,7 +283,6 @@
                     <th>Score Four</th>
                     <th>Source</th>
                     <th>Associate</th>
-                    <th>Stack</th>
                 </tr>
             </thead>
             <tbody>
@@ -306,7 +304,6 @@
                     <td>{{question.score_Four}}</td>
                     <td>{{question.source}}</td>
                     <td>{{question.associate_Id}}</td>
-                    <td>{{question.stack}}</td>
                 </tr>
             </tbody>
         </table>

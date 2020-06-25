@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormGroupDirective, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EventService } from '../services/event.service';
-import { Questionnaire, Event, User, EventDetails } from '../services/eventinfo.model';
+import { Questionnaire, Event, User, EventDetails, QuestionBuildTemplate } from '../services/eventinfo.model';
 import { ToastrService } from 'ngx-toastr';
+import * as xlsx from 'xlsx';
 
 @Component({
   selector: 'app-create-questioniare',
@@ -21,8 +22,8 @@ export class CreateQuestioniareComponent implements OnInit {
   quesFiles: any[] = [];
   event: EventDetails;
   user: User = new User();
-  stackList: string[] = []; 
-  constructor(private formBuilder: FormBuilder, private router: Router, private eventService: EventService,private toastr: ToastrService) { }
+  stackList: string[] = [];
+  constructor(private formBuilder: FormBuilder, private router: Router, private eventService: EventService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.questionCreationForm = this.formBuilder.group({
@@ -42,9 +43,9 @@ export class CreateQuestioniareComponent implements OnInit {
       option4: ['', Validators.required],
       score4: ['', Validators.required],
     });
-    this.event=this.eventService.getEvent();
-    this.user  = this.eventService.getUser();
-    this.event.skills.split(",").forEach(stack=>{
+    this.event = this.eventService.getEvent();
+    this.user = this.eventService.getUser();
+    this.event.skills.split(",").forEach(stack => {
       this.stackList.push(stack);
     });
   }
@@ -115,8 +116,8 @@ export class CreateQuestioniareComponent implements OnInit {
     console.log(this.quesFiles);
   }
 
-  setMultipleValidators(){
-    if(this.multiple.value==='No'){
+  setMultipleValidators() {
+    if (this.multiple.value === 'No') {
       this.option3.setValidators(null);
       this.score3.setValidators(null);
       this.option4.setValidators(null);
@@ -128,39 +129,48 @@ export class CreateQuestioniareComponent implements OnInit {
     this.score4.updateValueAndValidity();
   }
 
-  createQuestion(form) {
-    if(this.quesFiles.length===0){
-    this.submitted = true;
-    console.log("inside create Question");
-    if(this.questionCreationForm.invalid){
-      this.toastr.error("Please fill all requried fields");
-      return;
-    }
+  downloadTemplate() {
+    const ws: xlsx.WorkSheet = xlsx.utils.json_to_sheet([],{header:['Q.No','Blooms Taxonomony','Difficulty Level','Category','Multiple Answer','Topic','Question Text','Option 1','Correct Answer','Option 2','Correct Answer','Option 3','Correct Answer','Option 4','Correct Answer','Question Source']});
+    const wb: xlsx.WorkBook = xlsx.utils.book_new();
+    xlsx.utils.book_append_sheet(wb, ws, 'Sheet1');
+    xlsx.writeFile(wb, 'Question Build Template.xlsx');
+
+
   }
+
+  createQuestion(form) {
+    if (this.quesFiles.length === 0) {
+      this.submitted = true;
+      console.log("inside create Question");
+      if (this.questionCreationForm.invalid) {
+        this.toastr.error("Please fill all requried fields");
+        return;
+      }
+    }
     this.questionnaire.eventId = this.event.id;
     this.questionnaire.userId = this.user.id;
     const data = new FormData();
     if (this.quesFiles.length > 0) {
       data.append('quesFile', this.quesFiles[0]);
-      data.append('userId',this.user.id);
-      data.append('eventId',this.event.id);
-    }else{
-      data.append('questionnaire',JSON.stringify(this.questionnaire));
-      data.append('userId',this.user.id);
-      data.append('eventId',this.event.id);
+      data.append('userId', this.user.id);
+      data.append('eventId', this.event.id);
+    } else {
+      data.append('questionnaire', JSON.stringify(this.questionnaire));
+      data.append('userId', this.user.id);
+      data.append('eventId', this.event.id);
       console.log(this.questionnaire);
     }
-      this.eventService.createQuestionnaire(data).subscribe(res => {
-        this.toastr.success("Submitted Successfully");
-        this.submitted = false;
-        this.questionnaire = new Questionnaire();
-        this.quesFiles = [];
-        this.eventService.setSelectedTab('viewstatus');
-      }, err => {
-        console.log(err);
-        this.toastr.error(err.error);
-        this.quesFiles = [];
-      });
+    this.eventService.createQuestionnaire(data).subscribe(res => {
+      this.toastr.success("Submitted Successfully");
+      this.submitted = false;
+      this.questionnaire = new Questionnaire();
+      this.quesFiles = [];
+      this.eventService.setSelectedTab('viewstatus');
+    }, err => {
+      console.log(err);
+      this.toastr.error(err.error);
+      this.quesFiles = [];
+    });
   }
 
   cancel() {

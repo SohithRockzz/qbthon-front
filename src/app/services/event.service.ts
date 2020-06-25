@@ -17,8 +17,11 @@ export class EventService {
     private nominated: boolean;
     private id: string;
 
-    private backendUrlEvent: string = 'http://localhost:9001/event';
-    private backendUrlQuestion: string = 'http://localhost:9002/question';
+    //private backendUrlEvent: string = 'http://localhost:9001/event';
+    //private backendUrlQuestion: string = 'http://localhost:9002/question';
+    private backendUrlEvent: string = 'http://3.17.177.193:30591/event'
+    private backendUrlQuestion: string = 'http://3.17.177.193:30468/question';
+    private backendUrlEmail:string = 'http://3.17.177.193:30630/email';
     constructor(private httpClient: HttpClient) { }
 
 
@@ -84,11 +87,11 @@ export class EventService {
 
 
     sendReminderMail(id: string){
-        return this.httpClient.post(this.backendUrlEvent +'/sendReminderMail',id,{});
+        return this.httpClient.post(this.backendUrlEmail +'/sendReminderMail',id,{});
     }
 
     sendEducatorMail(id: string){
-        return this.httpClient.post(this.backendUrlEvent +'/sendEducatorMail',id,{});
+        return this.httpClient.post(this.backendUrlEmail +'/sendEducatorMail',id,{});
     }
 
     createQuestionnaire(files: FormData) {

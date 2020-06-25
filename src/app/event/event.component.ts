@@ -4,6 +4,7 @@ import { EventService } from '../services/event.service';
 import { ToastrService } from 'ngx-toastr';
 import { Event, User } from '../services/eventinfo.model';
 import { Router } from '@angular/router';
+import * as xlsx from 'xlsx';
 
 @Component({
   selector: 'app-event',
@@ -56,6 +57,13 @@ export class EventComponent implements OnInit {
       this.smeFileName = this.files[0].name;
     }
     console.log(this.files);
+  }
+
+  downloadTemplate(){
+    const ws: xlsx.WorkSheet = xlsx.utils.json_to_sheet([],{header:['Associate ID','Associate Name','BU Name','Account','Grade','Skill']});
+    const wb: xlsx.WorkBook = xlsx.utils.book_new();
+    xlsx.utils.book_append_sheet(wb, ws, 'Sheet1');
+    xlsx.writeFile(wb, 'Associate/SME Template.xlsx');
   }
 
   createEvent() {
