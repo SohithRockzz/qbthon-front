@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormGroupDirective, FormBuilder, Validators } from '@angular/forms';
 import { EventService } from '../services/event.service';
 import { ToastrService } from 'ngx-toastr';
@@ -26,6 +26,10 @@ export class EventComponent implements OnInit {
   smeFileName: string;
   associatesFileName: string;
   user: User = new User();
+  @ViewChild("smefileinput") 
+  smeFileInput: ElementRef;
+  @ViewChild("smefileinput")
+  assocfileinput: ElementRef;
 
   constructor(private formBuilder: FormBuilder, private router: Router,
     private eventService: EventService, private toastr: ToastrService) { }
@@ -85,9 +89,8 @@ export class EventComponent implements OnInit {
         this.router.navigate(['/home']);
         this.cancel();
       }, err => {
-        console.log(err);
         this.toastr.error(err.error);
-        this.files = [];
+        this.cancel();
       });
       this.user = this.eventService.getUser();
     } else {
@@ -114,6 +117,8 @@ export class EventComponent implements OnInit {
     this.files = [];
     this.smeFileName = '';
     this.associatesFileName = '';
+    this.smeFileInput.nativeElement.value = '';
+    this.assocfileinput.nativeElement.value = '';
 
   }
 

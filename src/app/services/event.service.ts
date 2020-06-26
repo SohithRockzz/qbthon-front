@@ -7,9 +7,6 @@ import { Observable } from 'rxjs';
     providedIn: 'root'
 })
 export class EventService {
-    setNominated(arg0: boolean) {
-      throw new Error("Method not implemented.");
-    }
 
     private eve: EventDetails;
     private user: User;
@@ -19,16 +16,16 @@ export class EventService {
 
     //private backendUrlEvent: string = 'http://localhost:9001/event';
     //private backendUrlQuestion: string = 'http://localhost:9002/question';
-    private backendUrlEvent: string = 'http://3.17.177.193:30591/event'
-    private backendUrlQuestion: string = 'http://3.17.177.193:30468/question';
-    private backendUrlEmail:string = 'http://3.17.177.193:30630/email';
+    private backendUrlEvent: string = 'http://3.19.69.148:30599/event'
+    private backendUrlQuestion: string = 'http://3.19.69.148:31522/question';
+    private backendUrlEmail: string = 'http://3.19.69.148:32331/email';
     constructor(private httpClient: HttpClient) { }
 
 
-    getId(): string{
+    getId(): string {
         return this.id
     }
-    setId(value: string){
+    setId(value: string) {
         this.id = value;
     }
     getNomination(): boolean {
@@ -57,10 +54,10 @@ export class EventService {
         return this.httpClient.post(this.backendUrlEvent + '/create', files, { responseType: 'text' });
     }
 
-    getEventsDetailsOfUser(userId):Observable<EventDetails[]> {
+    getEventsDetailsOfUser(userId): Observable<EventDetails[]> {
         let params = new HttpParams();
         params = params.append('userId', userId);
-        return this.httpClient.get<EventDetails[]>(this.backendUrlEvent + '/getUserEvents',{ params: params });
+        return this.httpClient.get<EventDetails[]>(this.backendUrlEvent + '/getUserEvents', { params: params });
     }
 
     getNominated(userId, eventId) {
@@ -68,37 +65,37 @@ export class EventService {
         const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
         params = params.append('eventId', eventId);
         params = params.append('userId', userId);
-        return this.httpClient.get(this.backendUrlEvent + '/nominate', {headers, responseType: 'text', params: params })
+        return this.httpClient.get(this.backendUrlEvent + '/nominate', { headers, responseType: 'text', params: params })
     }
 
-    getEarlyBirds(id: string):Observable<User[]>{
+    getEarlyBirds(id: string): Observable<User[]> {
         let params = new HttpParams();
         params = params.append('eventId', id);
         return this.httpClient.get<User[]>(this.backendUrlQuestion + '/event/early/birds', { params: params });
     }
 
-    getVoucherList(id: string):Observable<User[]>{
-        return this.httpClient.get<User[]>(this.backendUrlEvent + '/evoucher/'+ id, {});
+    getVoucherList(id: string): Observable<User[]> {
+        return this.httpClient.get<User[]>(this.backendUrlEvent + '/evoucher/' + id, {});
     }
 
-    getAllEvents():Observable<Event[]>{
+    getAllEvents(): Observable<Event[]> {
         return this.httpClient.get<Event[]>(this.backendUrlEvent + '/getAllEvents', {});
     }
 
 
-    sendReminderMail(id: string){
-        return this.httpClient.post(this.backendUrlEmail +'/sendReminderMail',id,{});
+    sendReminderMail(id: string) {
+        return this.httpClient.post(this.backendUrlEmail + '/sendReminderMail', id, {});
     }
 
-    sendEducatorMail(id: string){
-        return this.httpClient.post(this.backendUrlEmail +'/sendEducatorMail',id,{});
+    sendEducatorMail(id: string) {
+        return this.httpClient.post(this.backendUrlEmail + '/sendEducatorMail', id, {});
     }
 
     createQuestionnaire(files: FormData) {
         return this.httpClient.post(this.backendUrlQuestion + '/create', files, { responseType: 'text' });
     }
 
-    validateUser(user: User):Observable<User> {
+    validateUser(user: User): Observable<User> {
         return this.httpClient.post<User>(this.backendUrlEvent + '/validateUser', user, {});
     }
 
@@ -109,44 +106,52 @@ export class EventService {
         return this.user;
     }
 
-    getQuestionsMapList(eventId):Observable<any>{
+    getQuestionsMapList(eventId): Observable<any> {
         let params = new HttpParams();
         params = params.append('eventId', eventId);
         return this.httpClient.get<any>(this.backendUrlQuestion + '/all', { params: params });
     }
 
-    getUserQuestionList(eventId,userId,category):Observable<Questionnaire[]>{
+    getUserQuestionList(eventId, userId, category): Observable<Questionnaire[]> {
         let params = new HttpParams();
-        params = params.append('eventId',eventId);
-        params = params.append('userId',userId);
-        params = params.append('type',category);
-        return this.httpClient.get<Questionnaire[]>(this.backendUrlQuestion + '/getUserQuestionList',{params: params});
+        params = params.append('eventId', eventId);
+        params = params.append('userId', userId);
+        params = params.append('type', category);
+        return this.httpClient.get<Questionnaire[]>(this.backendUrlQuestion + '/getUserQuestionList', { params: params });
     }
 
-    getSMEQuestionsList(eventId,smeId):Observable<Questionnaire[]>{
+    getSMEQuestionsList(eventId, smeId): Observable<Questionnaire[]> {
         let params = new HttpParams();
-        params = params.append('eventId',eventId);
-        params = params.append('smeId',smeId);
-        return this.httpClient.get<Questionnaire[]>(this.backendUrlQuestion + '/getSMEQuestionsList',{params: params});
+        params = params.append('eventId', eventId);
+        params = params.append('smeId', smeId);
+        return this.httpClient.get<Questionnaire[]>(this.backendUrlQuestion + '/getSMEQuestionsList', { params: params });
     }
 
-    getQuestionsExcelList(eventId):Observable<any[]>{
+    getQuestionsExcelList(eventId): Observable<any[]> {
         let params = new HttpParams();
         params = params.append('eventId', eventId);
         return this.httpClient.get<any[]>(this.backendUrlQuestion + '/download/all', { params: params });
     }
-    updateQuestion(question):Observable<any[]>{
-        return this.httpClient.post<any[]>(this.backendUrlQuestion + '/update/question',question);
+    updateQuestion(question): Observable<any[]> {
+        return this.httpClient.post<any[]>(this.backendUrlQuestion + '/update/question', question);
     }
 
-    getChartData(eventId: string):Observable<any[]>{
+    updateQuestionBySME(quesId: string, status: string, comments: string): Observable<any> {
+        let params = new HttpParams();
+        params = params.append('questionId', quesId);
+        params = params.append('reviewStatus', status);
+        params = params.append('comment', comments);
+        return this.httpClient.get<any>(this.backendUrlQuestion + '/update/status', { params: params });
+    }
+
+    getChartData(eventId: string): Observable<any[]> {
         let params = new HttpParams();
         params = params.append('eventId', eventId);
-        return this.httpClient.get<any[]>(this.backendUrlQuestion + '/chart' ,{ params: params });
+        return this.httpClient.get<any[]>(this.backendUrlQuestion + '/chart', { params: params });
     }
 
-    getEventsDetails(){
-        return this.httpClient.get(this.backendUrlEvent +'/details',{});
+    getEventsDetails() {
+        return this.httpClient.get(this.backendUrlEvent + '/details', {});
     }
 
 

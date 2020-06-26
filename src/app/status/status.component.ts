@@ -1,4 +1,4 @@
-import { Component, OnInit ,ViewChild, ElementRef} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Event, Questionnaire, User, EventDetails } from '../services/eventinfo.model';
 import { EventService } from '../services/event.service';
 import * as xlsx from 'xlsx';
@@ -16,26 +16,27 @@ export class StatusComponent implements OnInit {
   questionCreationForm: FormGroup;
   event: EventDetails;
   isCollapsedAccepted = true;
-  isCollapsedRejected= true;
+  isCollapsedRejected = true;
   isCollapsedPartiallyApp = true;
   isCollapsedUnderReviewing = true;
 
   isCollapsedAcceptedSME = true;
   isCollapsedRejectedSME = true;
-  isCollapsedPartiallyAppSME  = true;
+  isCollapsedPartiallyAppSME = true;
   isCollapsedUnderReviewingSME = true;
 
-  isCollapsedSubmitted=true;
-  isCollapsedCheck=true;
-  questionsExcelList=[];
-  questionsMapList: Questionnaire [] = [];
-  smeQuestionsMapList: Questionnaire [] = [];
-  showModal= false;
+  isCollapsedSubmitted = true;
+  isCollapsedCheck = true;
+  questionsExcelList = [];
+  questionsMapList: Questionnaire[] = [];
+  smeQuestionsMapList: Questionnaire[] = [];
+  showModal = false;
   submitted: boolean;
   questionnaire: Questionnaire = new Questionnaire();
   user: User = new User();
+  stackList: string[] = [];
 
-  constructor(private formBuilder: FormBuilder, private eventService: EventService,private toastr: ToastrService) { }
+  constructor(private formBuilder: FormBuilder, private eventService: EventService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.questionCreationForm = this.formBuilder.group({
@@ -54,23 +55,27 @@ export class StatusComponent implements OnInit {
       score3: ['', Validators.required],
       option4: ['', Validators.required],
       score4: ['', Validators.required],
-      status:[''],
-      comment:['']
+      status: [''],
+      comment: ['']
     });
     this.event = this.eventService.getEvent();
+    this.event.skills.split(",").forEach(stack => {
+      this.stackList.push(stack);
+    });
     this.user = this.eventService.getUser();
-    if(this.user.adminFlag){
+    if (this.user.adminFlag) {
       this.getQuestionsMapList();
-    }else{
-      if(this.event.role==='SME'){
+    } else {
+      if (this.event.role === 'SME') {
         this.getSMEQuestionsList();
       }
       this.getUserQuestionsList();
     }
-    if(this.event.role === 'USER'){
+    if (this.event.role === 'USER' ) {
       this.status.disable();
       this.comment.disable();
     }
+    this.setValidation()
   }
   get stack() {
     return this.questionCreationForm.get('stack');
@@ -132,34 +137,39 @@ export class StatusComponent implements OnInit {
   get score4() {
     return this.questionCreationForm.get('score4');
   }
-  get status(){
+  get status() {
     return this.questionCreationForm.get('status');
   }
 
-  get comment(){
+  get comment() {
     return this.questionCreationForm.get('comment');
   }
 
-  getSMEQuestionsList(){
-    this.eventService.getSMEQuestionsList(this.event.id,this.user.id).subscribe(data=>{
-       console.log(data);
-       this.smeQuestionsMapList = data;
-    },err=>{
+  getSMEQuestionsList() {
+    this.eventService.getSMEQuestionsList(this.event.id, this.user.id).subscribe(data => {
+      console.log(data);
+      this.smeQuestionsMapList = data;
+    }, err => {
       this.toastr.error("Error in fetching SME questions list. Please try later")
     })
   }
+  setValidation(){
+    if(this.event.role==='SME'){
+      
+    }
+  }
 
-  getUserQuestionsList(){
-    this.eventService.getUserQuestionList(this.event.id,this.user.id,'Active').subscribe(data=>{
+  getUserQuestionsList() {
+    this.eventService.getUserQuestionList(this.event.id, this.user.id, 'Active').subscribe(data => {
       this.questionsMapList = data;
-    },err=>{
+    }, err => {
       this.toastr.error('Error in fetching the questionnaire list. Please try later');
     })
   }
 
-  getQuestionsMapList(){
+  getQuestionsMapList() {
     this.eventService.getQuestionsMapList(this.event.id).subscribe(res => {
-      this.questionsMapList=res ;
+      this.questionsMapList = res;
     }, err => {
       this.toastr.error('Error in fetching the questionnaire list. Please try later');
     });
@@ -167,62 +177,76 @@ export class StatusComponent implements OnInit {
   exportToExcel() {
     this.eventService.getQuestionsExcelList(this.event.id).subscribe(res => {
       this.questionsExcelList.push(...res);
-      if(this.questionsExcelList.length!==0){
-        setTimeout(()=>{ const ws: xlsx.WorkSheet =   
-          xlsx.utils.table_to_sheet(this.epltable.nativeElement);
+      if (this.questionsExcelList.length !== 0) {
+        setTimeout(() => {
+          const ws: xlsx.WorkSheet =
+            xlsx.utils.table_to_sheet(this.epltable.nativeElement);
           const wb: xlsx.WorkBook = xlsx.utils.book_new();
           xlsx.utils.book_append_sheet(wb, ws, 'Sheet1');
-          xlsx.writeFile(wb, 'questions.xlsx');}, 4000)
-      
-      }else{
+          xlsx.writeFile(wb, 'questions.xlsx');
+        }, 4000)
+
+      } else {
         this.toastr.error("No Questions has submitted to download");
       }
     }, err => {
       this.toastr.error(err.message);
     });
-    
-   }
 
-   setCommentsValidators(){
-     if(this.questionnaire.status==='Under Review'||this.questionnaire.status==='Accepted'){
+  }
+
+  setCommentsValidators() {
+    if (this.questionnaire.status === 'Under Review' || this.questionnaire.status === 'Accepted') {
       this.comment.setValidators(null);
-     }else{
-       this.comment.setValidators(Validators.required);
-     }
-     this.comment.updateValueAndValidity();
-   }
+    } else {
+      this.comment.setValidators(Validators.required);
+    }
+    this.comment.updateValueAndValidity();
+  }
 
-   editQuestion(question){
-     console.log("inside edit question"+JSON.stringify(question));
-     var myElement = document.getElementById("updateQuestionModal");
-     myElement.className="modal show";
-     this.showModal=true;
-     this.submitted = true;
-     this.questionnaire=question;
-    //  this.questionnaire.stack='Java';
-   }
-   hideModal(){
+  editQuestion(question) {
+    console.log("inside edit question" + JSON.stringify(question));
     var myElement = document.getElementById("updateQuestionModal");
-    myElement.className="modal fade"; 
-    this.showModal=false;
-   }
-   updateQuestion(){
-    console.log("questionnaire->"+JSON.stringify(this.questionnaire));
-    this.eventService.updateQuestion(this.questionnaire).subscribe(
-      res=>{
-        this.toastr.success(res.toString());
-        var myElement = document.getElementById("updateQuestionModal");
-        myElement.className="modal fade"; 
-        this.showModal=false;
+    myElement.className = "modal show";
+    this.showModal = true;
+    this.submitted = true;
+    this.questionnaire = question;
+    //  this.questionnaire.stack='Java';
+  }
+
+  hideModal() {
+    var myElement = document.getElementById("updateQuestionModal");
+    myElement.className = "modal fade";
+    this.showModal = false;
+  }
+
+  updateQuestion() {
+    console.log("questionnaire->" + JSON.stringify(this.questionnaire));
+    if (this.event.role === 'SME') {
+      console.log("SME");
+      this.eventService.updateQuestionBySME(this.questionnaire.id, this.questionnaire.status,this.questionnaire.comment).subscribe(data => {
+        this.toastr.success("Updated Successfully");
         this.getSMEQuestionsList();
-      },
-      error=>{
-        this.toastr.error(error.message);
-      }
-    );
-   }
-   setMultipleValidators(){
-    if(this.multiple.value==='No'){
+      },error => {
+        this.toastr.error(error.error);
+      });
+    } else {
+      this.eventService.updateQuestion(this.questionnaire).subscribe(
+        res => {
+          this.toastr.success("Updated Successfully");
+          this.getUserQuestionsList();
+        },
+        error => {
+          this.toastr.error(error.error);
+        }
+      );
+    }
+    var myElement = document.getElementById("updateQuestionModal");
+    myElement.className = "modal fade";
+    this.showModal = false;
+  }
+  setMultipleValidators() {
+    if (this.multiple.value === 'No') {
       this.option3.setValidators(null);
       this.score3.setValidators(null);
       this.option4.setValidators(null);

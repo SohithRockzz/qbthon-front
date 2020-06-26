@@ -42,4 +42,12 @@ export class NavbarComponent implements OnInit {
       this.router.navigate(['/report'])
     }
   }
+
+  logout(){
+    this.eventService.setUser(null);
+    this.eventService.setId(null);
+    this.eventService.setEvent(null);
+    this.eventService.setNomination(null);
+    this.router.navigate(['/login']);
+  }
 }

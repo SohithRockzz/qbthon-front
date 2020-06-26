@@ -1,10 +1,12 @@
 <div class="container-fluid">
-    <div style="text-align: right;">
-        <i class="fa fa-download" (click)="downloadTemplate()" style="font-size: 50px;padding-top: 5px;padding-right: 25px;"
-            aria-hidden="true"></i></div>
+    
     <form (ngSubmit)="createQuestion(questionCreationForm)" [formGroup]="questionCreationForm">
         <div class="group">
             <div class="boxboarder">
+                <h4 style="text-align: center;color: blue;">Create Question</h4>
+                <div style="text-align: right;">
+                    <i class="fa fa-download" (click)="downloadTemplate()" style="font-size: 35px;padding-top: 5px;padding-right: 25px;"
+                        aria-hidden="true"></i></div>
                 <br>
                 <div class="col-md-12 p-2">
                     <div class="row">
@@ -56,8 +58,8 @@
                                 id="category" name="category"   [(ngModel)]="this.questionnaire.category" required>
                                 <option selected value='' disabled>Please Select</option>
                                 <option value='Application'>Application</option>
-                                <option value='Analytics'>Analytics</option>
-                                <option value='Servers'>Servers</option>
+                                <option value='Analysis'>Analysis</option>
+                                <option value='Comprehension'>Comprehension</option>
                             </select>
                             <div *ngIf=" submitted && category.errors?.required">
                                 <span style="color: red;padding:2px">Category is a required field</span>
@@ -292,7 +294,8 @@
                         </div>
                         <div class="col-md-6">
                             <a>
-                                <i class="fa fa-upload" (click)="quesfileinput.click()"></i>
+                                <i class="fa fa-upload" style="font-size: 35px;" (click)="quesfileinput.click()"></i>
+                                <span style="padding-left: 15px;">{{this.quesFileName}}</span>
                                 <input hidden type="file" #quesfileinput (change)="uploadQuestion($event)">
                             </a>
                             <!-- accept="application/vnd.ms-excel" -->

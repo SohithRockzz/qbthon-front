@@ -1,4 +1,5 @@
-<div class="boxboarder">
+<div>
+    <div class="boxboarder">
     <div style="text-align: right;">
     <i *ngIf="this.user?.adminFlag"class="fa fa-download" (click)="exportToExcel()" style="font-size: 50px;padding-top: 5px;padding-right: 25px;"
         aria-hidden="true"></i></div>
@@ -93,8 +94,6 @@
                                                     <th>Category</th>
                                                     <th>Question</th>
                                                     <th>Assigned SME ID</th>
-                                                    <th>View/Details</th>
-
                                                 </tr>
                                             </thead>
                                             <!--Table head-->
@@ -110,9 +109,7 @@
                                                     <td>{{question.category}}</td>
                                                     <td>{{question.description}}</td>
                                                     <td>{{question.assignedSme}}</td>
-                                                    <td><i class="fa fa-pencil-square-o" style="font-size: 35px;"
-                                                            aria-hidden="true" (click)="editQuestion(question)"></i>
-                                                    </td>
+                                                    
                                                 </tr>
 
                                             </tbody>
@@ -152,7 +149,7 @@
                                                     <th>Category</th>
                                                     <th>Question</th>
                                                     <th>Assigned SME ID</th>
-                                                    <th>View/Details</th>
+                                                   
 
                                                 </tr>
                                             </thead>
@@ -169,9 +166,7 @@
                                                     <td>{{question.category}}</td>
                                                     <td>{{question.description}}</td>
                                                     <td>{{question.assignedSme}}</td>
-                                                    <td><i class="fa fa-pencil-square-o" style="font-size: 35px;"
-                                                            aria-hidden="true" (click)="editQuestion(question)"></i>
-                                                    </td>
+                                                  
                                                 </tr>
 
                                             </tbody>
@@ -210,7 +205,7 @@
                                                     <th>Category</th>
                                                     <th>Question</th>
                                                     <th>Assigned SME ID</th>
-                                                    <th>View/Details</th>
+                                                  
 
                                                 </tr>
                                             </thead>
@@ -227,9 +222,6 @@
                                                     <td>{{question.category}}</td>
                                                     <td>{{question.description}}</td>
                                                     <td>{{question.assignedSme}}</td>
-                                                    <td><i class="fa fa-pencil-square-o" style="font-size: 35px;"
-                                                            aria-hidden="true" (click)="editQuestion(question)"></i>
-                                                    </td>
                                                 </tr>
 
                                             </tbody>
@@ -346,7 +338,7 @@
                                                         <th>Category</th>
                                                         <th>Question</th>
                                                         <th>Assigned SME ID</th>
-                                                        <th>View/Details</th>
+                                                       
 
                                                     </tr>
                                                 </thead>
@@ -363,9 +355,7 @@
                                                         <td>{{question.category}}</td>
                                                         <td>{{question.description}}</td>
                                                         <td>{{question.assignedSme}}</td>
-                                                        <td><i class="fa fa-pencil-square-o" style="font-size: 35px;"
-                                                                aria-hidden="true" (click)="editQuestion(question)"></i>
-                                                        </td>
+                                                        
                                                     </tr>
 
                                                 </tbody>
@@ -405,7 +395,6 @@
                                                         <th>Category</th>
                                                         <th>Question</th>
                                                         <th>Assigned SME ID</th>
-                                                        <th>View/Details</th>
 
                                                     </tr>
                                                 </thead>
@@ -422,9 +411,6 @@
                                                         <td>{{question.category}}</td>
                                                         <td>{{question.description}}</td>
                                                         <td>{{question.assignedSme}}</td>
-                                                        <td><i class="fa fa-pencil-square-o" style="font-size: 35px;"
-                                                                aria-hidden="true" (click)="editQuestion(question)"></i>
-                                                        </td>
                                                     </tr>
 
                                                 </tbody>
@@ -553,428 +539,426 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="modal fade" id="updateQuestionModal" [style.display]="showModal?'block':'none'"
-                            tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Update Question</h5>
-                                        <button type="button" (click)="hideModal()" class="close" data-dismiss="modal"
-                                            aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form [formGroup]="questionCreationForm">
-                                            <div class="group">
-                                                <div class="boxboarder">
-                                                    <br>
-                                                    <div class="col-md-12 p-2">
-                                                        <div class="row">
-                                                            <div class="col-md-5" style="text-align: right;">
-                                                                <b><label for="stack">Stack</label></b>
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                <label for="">:</label>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <select style="width: 58%;"
-                                                                    class="form-control form-control-sm"
-                                                                    formControlName="stack" id="stack" name="stack"
-                                                                    [(ngModel)]="this.questionnaire.stack" required>
-                                                                    <option selected value=''>Please Select</option>
-                                                                    <option value='Java'>Java</option>
-                                                                    <option value='.net'>.Net</option>
-                                                                    <option value='Angular'>Angular</option>
-                                                                </select>
-                                                                <div *ngIf=" submitted && stack.errors?.required">
-                                                                    <span style="color: red;padding:2px">Stack is a
-                                                                        required field</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12 p-2">
-                                                        <div class="row">
-                                                            <div class="col-md-5" style="text-align: right;">
-                                                                <b><label for="source">Source</label></b>
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                <label for="">:</label>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <input class="form-control form-control-sm"
-                                                                    formControlName="source" id="source" name="source"
-                                                                    class="text"
-                                                                    [(ngModel)]="this.questionnaire.source">
-                                                                <div *ngIf=" submitted && source.errors?.required">
-                                                                    <span style="color: red;padding:2px">Source is a
-                                                                        required field</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12 p-2">
-                                                        <div class="row">
-                                                            <div class="col-md-5" style="text-align: right;">
-                                                                <b><label for="category">Category</label></b>
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                <label for="">:</label>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <select style="width: 58%;"
-                                                                    class="form-control form-control-sm"
-                                                                    formControlName="category" id="category"
-                                                                    name="category"
-                                                                    [(ngModel)]="this.questionnaire.category" required>
-                                                                    <option selected value=''>Please Select</option>
-                                                                    <option value='Application'>Application</option>
-                                                                    <option value='Analytics'>Analytics</option>
-                                                                    <option value='Servers'>Servers</option>
-                                                                </select>
-                                                                <div *ngIf=" submitted && category.errors?.required">
-                                                                    <span style="color: red;padding:2px">Category is a
-                                                                        required field</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12 p-2">
-                                                        <div class="row">
-                                                            <div class="col-md-5" style="text-align: right;">
-                                                                <b><label for="difficulty-level">Difficulty
-                                                                        Level</label></b>
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                <label for="">:</label>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <select style="width: 58%;"
-                                                                    class="form-control form-control-sm"
-                                                                    [(ngModel)]="this.questionnaire.difficulty"
-                                                                    formControlName="difficulty" id="difficulty"
-                                                                    name="difficulty" required>
-                                                                    <option selected value=''>Please Select</option>
-                                                                    <option value='Easy'>Easy</option>
-                                                                    <option value='Medium'>Medium</option>
-                                                                    <option value='Hard'>Hard</option>
-                                                                </select>
-                                                                <div *ngIf=" submitted && difficulty.errors?.required">
-                                                                    <span style="color: red;padding:2px">Difficulty is a
-                                                                        required
-                                                                        field</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12 p-2">
-                                                        <div class="row">
-                                                            <div class="col-md-5" style="text-align: right;">
-                                                                <b><label for="multiple-answer">Multiple
-                                                                        Answer</label></b>
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                <label for="">:</label>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <select style="width: 58%;"
-                                                                    class="form-control form-control-sm"
-                                                                    formControlName="multiple" id="multiple-answer"
-                                                                    [(ngModel)]="this.questionnaire.multiple"
-                                                                    name="multiple-answer"
-                                                                    (change)="setMultipleValidators()" required>
-                                                                    <option selected value=''>Please Select</option>
-                                                                    <option value='yes'>Yes</option>
-                                                                    <option value='no'>No</option>
-                                                                </select>
-                                                                <div *ngIf=" submitted && multiple.errors?.required">
-                                                                    <span style="color: red;padding:2px">Multiple Answer
-                                                                        is a required
-                                                                        field</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12 p-2">
-                                                        <div class="row">
-                                                            <div class="col-md-5" style="text-align: right;">
-                                                                <b><label for="topic">Topic</label></b>
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                <label for="">:</label>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <input class="form-control form-control-sm"
-                                                                    formControlName="topic" id="topic" name="topic"
-                                                                    class="text" [(ngModel)]="this.questionnaire.topic">
-                                                                <div *ngIf=" submitted && topic.errors?.required">
-                                                                    <span style="color: red;padding:2px">Topic is a
-                                                                        required field</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12 p-2">
-                                                        <div class="row">
-                                                            <div class="col-md-5" style="text-align: right;">
-                                                                <b><label for="description">Description</label></b>
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                <label for="">:</label>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="col-md-4"
-                                                                    style="padding-left: 0px;padding-right: 7px">
-                                                                    <textarea style="width: 187%;"
-                                                                        class="form-control form-control-sm"
-                                                                        [(ngModel)]="this.questionnaire.description"
-                                                                        formControlName="description" id="description"
-                                                                        name="description" type="text">
-                                        </textarea>
-                                                                    <div
-                                                                        *ngIf=" submitted && description.errors?.required">
-                                                                        <span style="color: red;padding:2px">Description
-                                                                            is a required
-                                                                            field</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12 p-2">
-                                                        <div class="row">
-                                                            <div class="col-md-5" style="text-align: right;">
-                                                                <b><label for="option">Option 1</label></b>
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                <label for="">:</label>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <input class="form-control form-control-sm"
-                                                                    formControlName="option1" id="option1"
-                                                                    name="option1" class="text"
-                                                                    [(ngModel)]="this.questionnaire.optionOne" required>
-                                                                <div *ngIf=" submitted && option1.errors?.required">
-                                                                    <span style="color: red;padding:2px">Option1 is a
-                                                                        required field</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12 p-2">
-                                                        <div class="row">
-                                                            <div class="col-md-5" style="text-align: right;">
-                                                                <b><label for="score">Score 1</label></b>
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                <label for="">:</label>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <input class="form-control form-control-sm"
-                                                                    formControlName="score1" id="score1" name="score1"
-                                                                    class="text"
-                                                                    [(ngModel)]="this.questionnaire.scoreOne" required>
-                                                                <div *ngIf=" submitted && score1.errors?.required">
-                                                                    <span style="color: red;padding:2px">Score1 is a
-                                                                        required field</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12 p-2">
-                                                        <div class="row">
-                                                            <div class="col-md-5" style="text-align: right;">
-                                                                <b><label for="option2">Option 2</label></b>
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                <label for="">:</label>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <input class="form-control form-control-sm"
-                                                                    formControlName="option2" id="option2"
-                                                                    name="option2" class="text"
-                                                                    [(ngModel)]="this.questionnaire.optionTwo" required>
-                                                                <div *ngIf=" submitted && option2.errors?.required">
-                                                                    <span style="color: red;padding:2px">Option2 is a
-                                                                        required field</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12 p-2">
-                                                        <div class="row">
-                                                            <div class="col-md-5" style="text-align: right;">
-                                                                <b><label for="score">Score 2</label></b>
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                <label for="">:</label>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <input class="form-control form-control-sm"
-                                                                    formControlName="score2" id="score2" name="score2"
-                                                                    class="text"
-                                                                    [(ngModel)]="this.questionnaire.scoreTwo" required>
-                                                                <div *ngIf=" submitted && score2.errors?.required">
-                                                                    <span style="color: red;padding:2px">Score2 is a
-                                                                        required field</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12 p-2">
-                                                        <div class="row">
-                                                            <div class="col-md-5" style="text-align: right;">
-                                                                <b><label for="option">Option 3</label></b>
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                <label for="">:</label>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <input class="form-control form-control-sm"
-                                                                    formControlName="option3" id="option3"
-                                                                    name="option3" class="text"
-                                                                    [(ngModel)]="this.questionnaire.optionThree"
-                                                                    required>
-                                                                <div *ngIf=" submitted && option3.errors?.required">
-                                                                    <span style="color: red;padding:2px">Option3 is a
-                                                                        required field</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12 p-2">
-                                                        <div class="row">
-                                                            <div class="col-md-5" style="text-align: right;">
-                                                                <b><label for="score">Score 3</label></b>
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                <label for="">:</label>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <input class="form-control form-control-sm"
-                                                                    formControlName="score3" id="score3" name="score3"
-                                                                    class="text"
-                                                                    [(ngModel)]="this.questionnaire.scoreThree"
-                                                                    required>
-                                                                <div *ngIf=" submitted && score3.errors?.required">
-                                                                    <span style="color: red;padding:2px">Score3 is a
-                                                                        required field</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12 p-2">
-                                                        <div class="row">
-                                                            <div class="col-md-5" style="text-align: right;">
-                                                                <b><label for="option">Option 4</label></b>
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                <label for="">:</label>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <input class="form-control form-control-sm"
-                                                                    formControlName="option4" id="option4"
-                                                                    name="option4" class="text"
-                                                                    [(ngModel)]="this.questionnaire.optionFour"
-                                                                    required>
-                                                                <div *ngIf=" submitted && option4.errors?.required">
-                                                                    <span style="color: red;padding:2px">Option4 is a
-                                                                        required field</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12 p-2">
-                                                        <div class="row">
-                                                            <div class="col-md-5" style="text-align: right;">
-                                                                <b><label for="score">Score 4</label></b>
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                <label for="">:</label>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <input class="form-control form-control-sm"
-                                                                    formControlName="score4" id="score4" name="score4"
-                                                                    class="text"
-                                                                    [(ngModel)]="this.questionnaire.scoreFour" required>
-                                                                <div *ngIf=" submitted && score4.errors?.required">
-                                                                    <span style="color: red;padding:2px">Score4 is a
-                                                                        required field</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12 p-2">
-                                                        <div class="row">
-                                                            <div class="col-md-5" style="text-align: right;">
-                                                                <b><label for="score">status</label></b>
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                <label for="">:</label>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <select style="width: 58%;"
-                                                                    class="form-control form-control-sm"
-                                                                    [(ngModel)]="this.questionnaire.status"
-                                                                    [(ngModel)]="this.questionnaire.status"
-                                                                    formControlName="status"
-                                                                    (change)="setCommentsValidators()" id="status"
-                                                                    name="status" required>
-                                                                    <option selected value='' disabled>Please Select
-                                                                    </option>
-                                                                    <option value='Under Review'>UnderReview</option>
-                                                                    <option value='Accepted'>Accepted</option>
-                                                                    <option value='Partially Approved'>Partially
-                                                                        Approved</option>
-                                                                    <option value='Rejected'>Rejected</option>
-                                                                </select>
-                                                                <div *ngIf=" submitted && status.errors?.required">
-                                                                    <span style="color: red;padding:2px"> status is a
-                                                                        required field</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12 p-2">
-                                                        <div class="row">
-                                                            <div class="col-md-5" style="text-align: right;">
-                                                                <b><label for="score">Comments</label></b>
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                <label for="">:</label>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <input class="form-control form-control-sm"
-                                                                    formControlName="comment" id="comment"
-                                                                    name="comment" class="text"
-                                                                    [(ngModel)]="this.questionnaire.comment">
-                                                                <div *ngIf=" submitted && comment.errors?.required">
-                                                                    <span style="color: red;padding:2px">Comments is a
-                                                                        required field</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                                            (click)="hideModal()">Close</button>
-                                        <button type="button" class="btn btn-primary" (click)="updateQuestion()">Save
-                                            changes</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
                 </div>
             </div>
         </div>
     </div>
+</div>
+<div class="modal fade" id="updateQuestionModal" [style.display]="showModal?'block':'none'"
+tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Update Question</h5>
+            <button type="button" (click)="hideModal()" class="close" data-dismiss="modal"
+                aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="questionCreationForm">
+                <div class="group">
+                    <div class="boxboarder">
+                        <br>
+                        <div class="col-md-12 p-2">
+                            <div class="row">
+                                <div class="col-md-5" style="text-align: right;">
+                                    <b><label for="stack">Stack</label></b>
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="">:</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <select style="width: 58%;"
+                                        class="form-control form-control-sm"
+                                        formControlName="stack" id="stack" name="stack"
+                                        [(ngModel)]="this.questionnaire.stack" required>
+                                        <option selected value=''>Please Select</option>
+                                        <option *ngFor="let stack of stackList" value="{{stack}}">{{stack}}</option>
+            
+                                    </select>
+                                    <div *ngIf=" submitted && stack.errors?.required">
+                                        <span style="color: red;padding:2px">Stack is a
+                                            required field</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 p-2">
+                            <div class="row">
+                                <div class="col-md-5" style="text-align: right;">
+                                    <b><label for="source">Source</label></b>
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="">:</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control form-control-sm"
+                                        formControlName="source" id="source" name="source"
+                                        class="text"
+                                        [(ngModel)]="this.questionnaire.source">
+                                    <div *ngIf=" submitted && source.errors?.required">
+                                        <span style="color: red;padding:2px">Source is a
+                                            required field</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 p-2">
+                            <div class="row">
+                                <div class="col-md-5" style="text-align: right;">
+                                    <b><label for="category">Category</label></b>
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="">:</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <select style="width: 58%;"
+                                        class="form-control form-control-sm"
+                                        formControlName="category" id="category"
+                                        name="category"
+                                        [(ngModel)]="this.questionnaire.category" required>
+                                        <option selected value=''>Please Select</option>
+                                        <option value='Application'>Application</option>
+                                        <option value='Analysis'>Analysis</option>
+                                        <option value='Comprehension'>Comprehension</option>
+                                    </select>
+                                    <div *ngIf=" submitted && category.errors?.required">
+                                        <span style="color: red;padding:2px">Category is a
+                                            required field</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 p-2">
+                            <div class="row">
+                                <div class="col-md-5" style="text-align: right;">
+                                    <b><label for="difficulty-level">Difficulty
+                                            Level</label></b>
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="">:</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <select style="width: 58%;"
+                                        class="form-control form-control-sm"
+                                        [(ngModel)]="this.questionnaire.difficulty"
+                                        formControlName="difficulty" id="difficulty"
+                                        name="difficulty" required>
+                                        <option selected value=''>Please Select</option>
+                                        <option value='Easy'>Easy</option>
+                                        <option value='Medium'>Medium</option>
+                                        <option value='Hard'>Hard</option>
+                                    </select>
+                                    <div *ngIf=" submitted && difficulty.errors?.required">
+                                        <span style="color: red;padding:2px">Difficulty is a
+                                            required
+                                            field</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 p-2">
+                            <div class="row">
+                                <div class="col-md-5" style="text-align: right;">
+                                    <b><label for="multiple-answer">Multiple
+                                            Answer</label></b>
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="">:</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <select style="width: 58%;"
+                                        class="form-control form-control-sm"
+                                        formControlName="multiple" id="multiple-answer"
+                                        [(ngModel)]="this.questionnaire.multiple"
+                                        name="multiple-answer"
+                                        (change)="setMultipleValidators()" required>
+                                        <option selected value=''>Please Select</option>
+                                        <option value='yes'>Yes</option>
+                                        <option value='no'>No</option>
+                                    </select>
+                                    <div *ngIf=" submitted && multiple.errors?.required">
+                                        <span style="color: red;padding:2px">Multiple Answer
+                                            is a required
+                                            field</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 p-2">
+                            <div class="row">
+                                <div class="col-md-5" style="text-align: right;">
+                                    <b><label for="topic">Topic</label></b>
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="">:</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control form-control-sm"
+                                        formControlName="topic" id="topic" name="topic"
+                                        class="text" [(ngModel)]="this.questionnaire.topic">
+                                    <div *ngIf=" submitted && topic.errors?.required">
+                                        <span style="color: red;padding:2px">Topic is a
+                                            required field</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 p-2">
+                            <div class="row">
+                                <div class="col-md-5" style="text-align: right;">
+                                    <b><label for="description">Description</label></b>
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="">:</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-4"
+                                        style="padding-left: 0px;padding-right: 7px">
+                                        <textarea style="width: 187%;"
+                                            class="form-control form-control-sm"
+                                            [(ngModel)]="this.questionnaire.description"
+                                            formControlName="description" id="description"
+                                            name="description" type="text">
+            </textarea>
+                                        <div
+                                            *ngIf=" submitted && description.errors?.required">
+                                            <span style="color: red;padding:2px">Description
+                                                is a required
+                                                field</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 p-2">
+                            <div class="row">
+                                <div class="col-md-5" style="text-align: right;">
+                                    <b><label for="option">Option 1</label></b>
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="">:</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control form-control-sm"
+                                        formControlName="option1" id="option1"
+                                        name="option1" class="text"
+                                        [(ngModel)]="this.questionnaire.optionOne" required>
+                                    <div *ngIf=" submitted && option1.errors?.required">
+                                        <span style="color: red;padding:2px">Option1 is a
+                                            required field</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 p-2">
+                            <div class="row">
+                                <div class="col-md-5" style="text-align: right;">
+                                    <b><label for="score">Score 1</label></b>
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="">:</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control form-control-sm"
+                                        formControlName="score1" id="score1" name="score1"
+                                        class="text"
+                                        [(ngModel)]="this.questionnaire.scoreOne" required>
+                                    <div *ngIf=" submitted && score1.errors?.required">
+                                        <span style="color: red;padding:2px">Score1 is a
+                                            required field</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 p-2">
+                            <div class="row">
+                                <div class="col-md-5" style="text-align: right;">
+                                    <b><label for="option2">Option 2</label></b>
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="">:</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control form-control-sm"
+                                        formControlName="option2" id="option2"
+                                        name="option2" class="text"
+                                        [(ngModel)]="this.questionnaire.optionTwo" required>
+                                    <div *ngIf=" submitted && option2.errors?.required">
+                                        <span style="color: red;padding:2px">Option2 is a
+                                            required field</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 p-2">
+                            <div class="row">
+                                <div class="col-md-5" style="text-align: right;">
+                                    <b><label for="score">Score 2</label></b>
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="">:</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control form-control-sm"
+                                        formControlName="score2" id="score2" name="score2"
+                                        class="text"
+                                        [(ngModel)]="this.questionnaire.scoreTwo" required>
+                                    <div *ngIf=" submitted && score2.errors?.required">
+                                        <span style="color: red;padding:2px">Score2 is a
+                                            required field</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 p-2">
+                            <div class="row">
+                                <div class="col-md-5" style="text-align: right;">
+                                    <b><label for="option">Option 3</label></b>
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="">:</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control form-control-sm"
+                                        formControlName="option3" id="option3"
+                                        name="option3" class="text"
+                                        [(ngModel)]="this.questionnaire.optionThree"
+                                        required>
+                                    <div *ngIf=" submitted && option3.errors?.required">
+                                        <span style="color: red;padding:2px">Option3 is a
+                                            required field</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 p-2">
+                            <div class="row">
+                                <div class="col-md-5" style="text-align: right;">
+                                    <b><label for="score">Score 3</label></b>
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="">:</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control form-control-sm"
+                                        formControlName="score3" id="score3" name="score3"
+                                        class="text"
+                                        [(ngModel)]="this.questionnaire.scoreThree"
+                                        required>
+                                    <div *ngIf=" submitted && score3.errors?.required">
+                                        <span style="color: red;padding:2px">Score3 is a
+                                            required field</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 p-2">
+                            <div class="row">
+                                <div class="col-md-5" style="text-align: right;">
+                                    <b><label for="option">Option 4</label></b>
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="">:</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control form-control-sm"
+                                        formControlName="option4" id="option4"
+                                        name="option4" class="text"
+                                        [(ngModel)]="this.questionnaire.optionFour"
+                                        required>
+                                    <div *ngIf=" submitted && option4.errors?.required">
+                                        <span style="color: red;padding:2px">Option4 is a
+                                            required field</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 p-2">
+                            <div class="row">
+                                <div class="col-md-5" style="text-align: right;">
+                                    <b><label for="score">Score 4</label></b>
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="">:</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control form-control-sm"
+                                        formControlName="score4" id="score4" name="score4"
+                                        class="text"
+                                        [(ngModel)]="this.questionnaire.scoreFour" required>
+                                    <div *ngIf=" submitted && score4.errors?.required">
+                                        <span style="color: red;padding:2px">Score4 is a
+                                            required field</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 p-2">
+                            <div class="row">
+                                <div class="col-md-5" style="text-align: right;">
+                                    <b><label for="score">status</label></b>
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="">:</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <select style="width: 58%;"
+                                        class="form-control form-control-sm"
+                                        [(ngModel)]="this.questionnaire.status"
+                                       
+                                        formControlName="status"
+                                        (change)="setCommentsValidators()" id="status"
+                                        name="status" required>
+                                        <option selected value='' disabled>Please Select
+                                        </option>
+                                        <option value='Under Review'>UnderReview</option>
+                                        <option value='Accepted'>Accepted</option>
+                                        <option value='Partially Accepted'>Partially
+                                            Accepted</option>
+                                        <option value='Rejected'>Rejected</option>
+                                    </select>
+                                    <div *ngIf=" submitted && status.errors?.required">
+                                        <span style="color: red;padding:2px"> status is a
+                                            required field</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 p-2">
+                            <div class="row">
+                                <div class="col-md-5" style="text-align: right;">
+                                    <b><label for="score">Comments</label></b>
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="">:</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control form-control-sm"
+                                        formControlName="comment" id="comment"
+                                        name="comment" class="text"
+                                        [(ngModel)]="this.questionnaire.comment">
+                                    <div *ngIf=" submitted && comment.errors?.required">
+                                        <span style="color: red;padding:2px">Comments is a
+                                            required field</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                (click)="hideModal()">Close</button>
+            <button type="button" class="btn btn-primary" (click)="updateQuestion()">Save
+                changes</button>
+        </div>
+    </div>
+</div>
+</div>
+</div>
 </div>

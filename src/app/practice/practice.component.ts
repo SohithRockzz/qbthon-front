@@ -26,6 +26,9 @@ export class PracticeComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private eventService: EventService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    
+    this.user = this.eventService.getUser();
+    this.getPracticeQuestions();
     this.questionCreationForm = this.formBuilder.group({
       stack: ['', Validators.required],
       topic: ['', Validators.required],
@@ -43,8 +46,6 @@ export class PracticeComponent implements OnInit {
       option4: ['', Validators.required],
       score4: ['', Validators.required],
     });
-    this.user = this.eventService.getUser();
-    this.getPracticeQuestions();
   }
 
   get stack() {
@@ -108,55 +109,62 @@ export class PracticeComponent implements OnInit {
     return this.questionCreationForm.get('score4');
   }
 
-  getPracticeQuestions(){
-    this.eventService.getUserQuestionList(this.eventService.getId(),this.user.id,'Practice').subscribe(data=>{
+  getPracticeQuestions() {
+    this.eventService.getUserQuestionList(this.eventService.getId(), this.user.id, 'Practice').subscribe(data => {
       this.practiceQuestionsList = data;
       this.filterQuestionList(this.practiceQuestionsList);
-      if(this.filteredPracticeQuestionsList.length>0){
-        this.questionCreationForm.disable();
-      }
+    
+        if (this.filteredPracticeQuestionsList.length > 0) {
+          this.questionCreationForm.disable();
+        }
+    
+     
     })
   }
 
-  filterQuestionList(practiceList: Questionnaire[]){
-    if(practiceList['Under Review'].length>0){
+  filterQuestionList(practiceList: Questionnaire[]) {
+    if (practiceList['Under Review'].length > 0) {
       this.filteredPracticeQuestionsList = practiceList['Under Review'];
-    }else if(practiceList['Accepted'].length>0){
+    } else if (practiceList['Accepted'].length > 0) {
       this.filteredPracticeQuestionsList = practiceList['Accepted'];
-    }else if(practiceList['Rejected'].length>0){
+    } else if (practiceList['Rejected'].length > 0) {
       this.filteredPracticeQuestionsList = practiceList['Rejected'];
-    }else{
-      this.filteredPracticeQuestionsList = practiceList['Partially Approved'];
+    } else if (practiceList['Partially Accepted'].length > 0){
+      this.filteredPracticeQuestionsList = practiceList['Partially Accepted'];
     }
-    console.log(this.filteredPracticeQuestionsList);
   }
 
 
 
   createQuestion(form) {
     this.submitted = true;
-    console.log("inside create Question");
-    if (this.questionCreationForm.invalid) {
-      this.toastr.error("Please fill all requried fields");
-      return;
+    if (this.filteredPracticeQuestionsList.length !== 0) {
+
+      this.toastr.error("Only one Practice Question Can Be Submitted");
+     
+    } else {
+      if (this.questionCreationForm.invalid) {
+        this.toastr.error("Please fill all requried fields");
+        return;
+      }
+      this.questionnaire.userId = this.user.id;
+      this.questionnaire.eventId = this.eventService.getId();
+      this.questionnaire.type = 'Practice';
+      const data = new FormData();
+      data.append('questionnaire', JSON.stringify(this.questionnaire));
+      data.append('eventId', this.eventService.getId())
+      data.append('userId', this.user.id);
+      console.log(this.questionnaire);
+      this.eventService.createQuestionnaire(data).subscribe(res => {
+        this.toastr.success("Submitted Successfully");
+        this.submitted = false;
+        this.questionnaire = new Questionnaire();
+        this.getPracticeQuestions();
+      }, err => {
+        console.log(err);
+        this.toastr.error(err.error);
+      });
     }
-    this.questionnaire.userId = this.user.id;
-    this.questionnaire.eventId  = this.eventService.getId();
-    this.questionnaire.type = 'Practice';
-    const data = new FormData();
-    data.append('questionnaire', JSON.stringify(this.questionnaire));
-    data.append('eventId',this.eventService.getId())
-    data.append('userId', this.user.id);
-    console.log(this.questionnaire);
-    this.eventService.createQuestionnaire(data).subscribe(res => {
-      this.toastr.success("Submitted Successfully");
-      this.submitted = false;
-      this.questionnaire = new Questionnaire();
-      this.eventService.setSelectedTab('viewstatus');
-    }, err => {
-      console.log(err);
-      this.toastr.error(err.error);
-    });
   }
 
   cancel() {

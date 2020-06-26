@@ -3,9 +3,10 @@
     <form (ngSubmit)="createEvent()" [formGroup]="eventCreationForm">
         <div class="group">
             <div class="boxboarder">
-                <i class="fa fa-download" (click)="downloadTemplate()" style="font-size: 50px;padding-top: 5px;padding-right: 25px;"
-                aria-hidden="true"></i>
                 <h4 style="text-align: center;color: blue;">Create Event</h4>
+                <div style="text-align: right;">
+                <i class="fa fa-download" (click)="downloadTemplate()" style="padding-top: 5px;padding-right: 25px;"
+                aria-hidden="true"></i></div>
                 <div class="col-md-12 p-2">
                     <div class="row">
                         <div class="col-md-5" style="text-align: right;">
@@ -18,11 +19,11 @@
                             <select class="mdb-select md-form" class="form-control form-control-sm"
                                 formControlName="skill" id="skill" name="skill" multiple required style="width: 27%;">
                                 <option value="" disabled selected>Choose your skills</option>
-                                <option value="java">Java</option>
-                                <option value=".net">.Net</option>
-                                <option value="angular">Angular</option>
-                                <option value="html">HTML</option>
-                                <option value="css">CSS</option>
+                                <option value="Java">Java</option>
+                                <option value=".Net">.Net</option>
+                                <option value="Angular">Angular</option>
+                                <option value="HTML">HTML</option>
+                                <option value="CSS">CSS</option>
                             </select>
                             <div *ngIf=" submitted && skill.errors?.required">
                                 <span style="color: red;padding:2px">Skill is a required field</span>

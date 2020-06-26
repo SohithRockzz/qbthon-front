@@ -26,11 +26,11 @@
                                                 <select style="width: 36%;" class="form-control form-control-sm" formControlName="stack"
                                                     id="stack" name="stack" [(ngModel)]="this.questionnaire.stack" required>
                                                     <option value="" disabled selected>Choose your skills</option>
-                                                    <option value="java">Java</option>
-                                                    <option value=".net">.Net</option>
-                                                    <option value="angular">Angular</option>
-                                                    <option value="html">HTML</option>
-                                                    <option value="css">CSS</option>
+                                                    <option value="Java">Java</option>
+                                                    <option value=".Net">.Net</option>
+                                                    <option value="Angular">Angular</option>
+                                                    <option value="HTML">HTML</option>
+                                                    <option value="CSS">CSS</option>
                                                 </select>
                                                 <div *ngIf=" submitted && stack.errors?.required">
                                                     <span style="color: red;padding:2px">Stack is a required field</span>
@@ -68,8 +68,8 @@
                                                     id="category" name="category"   [(ngModel)]="this.questionnaire.category" required>
                                                     <option selected value='' disabled>Please Select</option>
                                                     <option value='Application'>Application</option>
-                                                    <option value='Analytics'>Analytics</option>
-                                                    <option value='Servers'>Servers</option>
+                                                    <option value='Analysis'>Analysis</option>
+                                                    <option value='Comprehension'>Comprehension</option>
                                                 </select>
                                                 <div *ngIf=" submitted && category.errors?.required">
                                                     <span style="color: red;padding:2px">Category is a required field</span>
@@ -109,7 +109,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <select style="width: 36%;" class="form-control form-control-sm" formControlName="multiple"
-                                                    id="multiple-answer" [(ngModel)]="this.questionnaire.multiple" name="multiple-answer" (change)="setMultipleValidators()"required>
+                                                    id="multiple-answer" [(ngModel)]="this.questionnaire.multiple" name="multiple-answer" required>
                                                     <option selected value='' disabled>Please Select</option>
                                                     <option value='yes'>Yes</option>
                                                     <option value='no'>No</option>

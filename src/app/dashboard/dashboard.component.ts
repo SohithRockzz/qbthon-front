@@ -62,7 +62,6 @@ export class DashboardComponent implements OnInit {
   }
 
   checkNomination(list:EventDetails[]){
-    console.log(list);
     this.allEvents.push(list['TOTAL']);
     list['TOTAL'].some(event=>{
       if(event.nomination){
